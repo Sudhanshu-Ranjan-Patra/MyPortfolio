@@ -1,0 +1,19 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&display=swap');
+
+@import "tailwindcss";
+
+.button-primary{
+    color: red;
+    padding: 5px 25px;
+    background-color: #191C24;
+    font-weight: 300;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    letter-spacing: 1px;
+}
+
+.font-Franklin {
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    /* letter-spacing: 0.5px; */
+    font-size: 16px;
+}
