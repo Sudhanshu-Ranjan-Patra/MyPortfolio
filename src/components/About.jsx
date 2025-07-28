@@ -34,7 +34,7 @@ function About() {
           </p>
           <div className="grid grid-cols-2 gap-10 mt-8">
             <div>
-              <h3 className="text-white text-3xl font-bold">1+ YEARS</h3>
+              <h3 className="text-white text-3xl font-bold">1.5+ YEARS</h3>
               <p className="text-[#6C7293] mt-2 font-Franklin font-medium ">
                 Hands-on experience in writing clean and maintainable code.
               </p>
