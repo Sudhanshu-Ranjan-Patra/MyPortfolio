@@ -2,7 +2,7 @@ import React from "react";
 
 function Projects() {
   return (
-    <div className="bg-black [font-family:Oswald,sans-serif] font-bold">
+    <div className="bg-black [font-family:Oswald,sans-serif] font-bold pb-10">
       <div className="flex flex-col justify-center items-center">
         <button className="button-primary">Projects</button>
         <h2 className="text-4xl font-bold text-white mt-5">WHAT I BUILD</h2>
