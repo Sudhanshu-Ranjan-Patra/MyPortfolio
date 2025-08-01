@@ -9,6 +9,8 @@ function Skill() {
       <div className="Skills grid grid-cols-1 sm:grid-cols-2 pt-10">
         <div className="skill-bar bg-[#191C24] sm:ml-25 p-8 space-y-6 pt-10">
             <h2 className="text-4xl font-bold uppercase text-white mt-5">Things I’ve Picked Up</h2>
+          
+          {/* Skill 1 */}
           <div>
             <div className="flex justify-between mb-1">
               <span className="text-white">HTML</span>
