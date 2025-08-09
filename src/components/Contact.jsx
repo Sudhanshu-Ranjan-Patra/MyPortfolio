@@ -8,29 +8,6 @@ function Contact() {
   {/* Left Section */}
   <div className="left flex flex-col md:flex-row gap-20 w-full md:w-4/5">
     
-    {/* Get in Touch Section */}
-    <div className="flex-1">
-      <h3 className="text-2xl font-bold mb-4">GET IN TOUCH</h3>
-      <form className="flex flex-col gap-3">
-        <input
-          type="text"
-          placeholder="Your Name"
-          className="p-2 rounded bg-[#2A2F3A] text-white placeholder-gray-400"
-        />
-        <input
-          type="email"
-          placeholder="Your Email"
-          className="p-2 rounded bg-[#2A2F3A] text-white placeholder-gray-400"
-        />
-        <textarea
-          placeholder="Your Message"
-          className="p-2 rounded bg-[#2A2F3A] text-white placeholder-gray-400 h-24"
-        ></textarea>
-        <button className="bg-red-600 hover:bg-[#d21717] transition-colors duration-300 text-white py-2 rounded-lg font-semibold">
-          Send Message
-        </button>
-      </form>
-    </div>
 
     {/* Quick Links Section */}
     <div className="flex-1">
@@ -45,6 +22,30 @@ function Contact() {
           </li>
         ))}
       </ul>
+    </div>
+
+     {/* Get in Touch Section */}
+    <div className="flex-1">
+      <h3 className="text-2xl font-bold mb-4">GET IN TOUCH</h3>
+      <form className="flex flex-col gap-3 ">
+        <input
+          type="text"
+          placeholder="Your Name"
+          className="p-2 rounded bg-[#2A2F3A] text-white placeholder-gray-400 focus:border-none focus:ring-2 focus:ring-red-600"
+        />
+        <input
+          type="email"
+          placeholder="Your Email"
+          className="p-2 rounded bg-[#2A2F3A] text-white placeholder-gray-400"
+        />
+        <textarea
+          placeholder="Your Message"
+          className="p-2 rounded bg-[#2A2F3A] text-white placeholder-gray-400 h-24"
+        ></textarea>
+        <button className="bg-red-600 hover:bg-[#d21717] transition-colors duration-300 text-white py-2 rounded-lg font-semibold">
+          Send Message
+        </button>
+      </form>
     </div>
   </div>
 
