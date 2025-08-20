@@ -47,7 +47,7 @@ function Contact() {
         </div>
 
         {/* Right Image Section */}
-        <div className="right flex justify-center items-center md:w-1/5">
+        <div className="right hidden md:flex justify-center items-center md:w-1/5">
           <img
             className="w-1/5 md:w-full flex items-center mr-50"
             src="../images/contact-img.png"

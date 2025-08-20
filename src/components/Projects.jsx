@@ -48,7 +48,7 @@ function Projects() {
             </div>
 
             <div className="absolute flex justify-center items-center top-9 w-15 h-15 bg-black">
-              <img className="p-4" src="../images/foodyzone-logo.png"></img>
+              <img className="p-3" src="../images/foodyzone-logo.png"></img>
             </div>
           </div>
 
@@ -70,21 +70,21 @@ function Projects() {
             </div>
 
             <div className="absolute flex justify-center items-center top-9 w-15 h-15 bg-black">
-              <img className="p-4" src="../images/todoapp-logo.png"></img>
+              <img className="p-3" src="../images/todoapp-logo.png"></img>
             </div>
           </div>
 
           <div className="flex flex-col bg-[#191C24] w-100 h-65 group relative">
             <div className="mt-10 ml-20 mr-15">
               <h2 className="text-3xl uppercase font-bold text-white ">
-                Medifit
+                Weather App
               </h2>
               <p className="text-[#6C7293]  font-Franklin font-extralight mt-4 leading-relaxed">
-                Frontend design of a medical shop with product view, search
-                option, and interactive cart section.
+                Weather forecast web app with real-time API integration for city
+                based weather updates.
               </p>
               <p className="text-red-600 uppercase font-Franklin font-light mt-5">
-                React + Vite
+                HTML + CSS + JS
               </p>
             </div>
             <div className=" hidden  group-hover:flex transition justify-center items-center ml-87 w-13 h-13 bg-black">
@@ -92,21 +92,21 @@ function Projects() {
             </div>
 
             <div className="absolute flex justify-center items-center top-9 w-15 h-15 bg-black">
-              <img className="p-2" src="../images/medifit-logo.png"></img>
+              <img className="p-3" src="../images/weatherapp-logo.png"></img>
             </div>
           </div>
 
           <div className="flex flex-col bg-[#191C24] w-100 h-65 group relative">
             <div className="mt-10 ml-20 mr-15">
               <h2 className="text-3xl uppercase font-bold text-white ">
-                Medifit
+                QR Generator
               </h2>
               <p className="text-[#6C7293]  font-Franklin font-extralight mt-4 leading-relaxed">
-                Frontend design of a medical shop with product view, search
-                option, and interactive cart section.
+                A QR Code Generator that converts text or URLs into QR codes
+                using a QR code API
               </p>
               <p className="text-red-600 uppercase font-Franklin font-light mt-5">
-                React + Vite
+                Html + CSS + JS
               </p>
             </div>
             <div className=" hidden  group-hover:flex transition justify-center items-center ml-87 w-13 h-13 bg-black">
@@ -114,21 +114,20 @@ function Projects() {
             </div>
 
             <div className="absolute flex justify-center items-center top-9 w-15 h-15 bg-black">
-              <img className="p-2" src="../images/medifit-logo.png"></img>
+              <img className="p-3" src="../images/qr-generator-logo.png"></img>
             </div>
           </div>
 
           <div className="flex flex-col bg-[#191C24] w-100 h-65 group relative">
             <div className="mt-10 ml-20 mr-15">
               <h2 className="text-3xl uppercase font-bold text-white ">
-                Medifit
+                Web-Bocket Clone
               </h2>
               <p className="text-[#6C7293]  font-Franklin font-extralight mt-4 leading-relaxed">
-                Frontend design of a medical shop with product view, search
-                option, and interactive cart section.
+                Static IT services website presenting it's offerings with keyframe animations.
               </p>
               <p className="text-red-600 uppercase font-Franklin font-light mt-5">
-                React + Vite
+                Html + CSS + JS
               </p>
             </div>
             <div className=" hidden  group-hover:flex transition justify-center items-center ml-87 w-13 h-13 bg-black">
@@ -136,7 +135,7 @@ function Projects() {
             </div>
 
             <div className="absolute flex justify-center items-center top-9 w-15 h-15 bg-black">
-              <img className="p-2" src="../images/medifit-logo.png"></img>
+              <img className="p-3" src="../images/website-clone-logo.png"></img>
             </div>
           </div>
         </div>
