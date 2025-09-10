@@ -14,7 +14,7 @@ function About() {
           </p>
           <p className="text-2xl sm:text-4xl text-white">DEVELOPER</p>
         </div>
-
+        
         <div className="right m-20 ml-5 mr-25">
           <button className="button-primary">About Me</button>
 
