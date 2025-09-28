@@ -4,9 +4,7 @@ function Contact() {
   return (
     <div className="bg-black [font-family:Oswald,sans-serif] font-bold pb-10">
       <div className="contact flex flex-col md:flex-row justify-between bg-[#191C24] p-8 rounded-xl text-white gap-10">
-        {/* Left Section */}
         <div className="left flex flex-col md:flex-row gap-20 w-full md:w-4/5">
-          {/* Quick Links Section */}
           <div className="flex-1">
             <h3 className="text-2xl font-bold mb-4">QUICK LINKS</h3>
             <ul className="flex flex-col gap-2">
