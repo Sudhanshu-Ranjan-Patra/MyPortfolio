@@ -3,13 +3,15 @@ import React from "react";
 function Skill() {
   return (
     <div className="bg-black [font-family:Oswald,sans-serif] font-bold pb-10">
-        <div className="flex flex-col justify-center items-center pt-10">
-            <button className="button-primary ">My Skills</button>
-        </div>
+      <div className="flex flex-col justify-center items-center pt-10">
+        <button className="button-primary ">My Skills</button>
+      </div>
       <div className="Skills grid grid-cols-1 sm:grid-cols-2 pt-10">
         <div className="skill-bar bg-[#191C24] sm:ml-25 p-8 space-y-6 pt-10">
-            <h2 className="text-4xl font-bold uppercase text-white mt-5">Things I’ve Picked Up</h2>
-          
+          <h2 className="text-4xl font-bold uppercase text-white mt-5">
+            Things I’ve Picked Up
+          </h2>
+
           {/* Skill 1 */}
           <div>
             <div className="flex justify-between mb-1">

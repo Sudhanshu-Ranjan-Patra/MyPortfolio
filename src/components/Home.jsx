@@ -1,6 +1,5 @@
 import React from "react";
 
-
 function Home() {
   return (
     <div className="bg-black [font-family:Oswald,sans-serif] font-bold">
@@ -13,7 +12,6 @@ function Home() {
           <p>I'm</p>
         </p>
         <h1 className="text-5xl md:text-7xl  text-white mt-2 opacity-100">
-          
           SUDHANSHU RANJAN <br />
           PATRA
         </h1>

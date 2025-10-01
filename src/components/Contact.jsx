@@ -11,14 +11,16 @@ function Contact() {
             <div className="w-1/4">
               <h3 className="text-2xl font-bold mb-6">QUICK LINKS</h3>
               <ul className="flex flex-col gap-3">
-                {["Home", "About", "Services", "Blog", "Contact"].map((item) => (
-                  <li
-                    key={item}
-                    className="hover:text-red-600 transition-all duration-200 cursor-pointer text-lg"
-                  >
-                    {item}
-                  </li>
-                ))}
+                {["Home", "About", "Services", "Blog", "Contact"].map(
+                  (item) => (
+                    <li
+                      key={item}
+                      className="hover:text-red-600 transition-all duration-200 cursor-pointer text-lg"
+                    >
+                      {item}
+                    </li>
+                  )
+                )}
               </ul>
             </div>
 
@@ -97,14 +99,16 @@ function Contact() {
             <div>
               <h3 className="text-xl font-bold mb-4">QUICK LINKS</h3>
               <ul className="flex flex-col gap-2">
-                {["Home", "About", "Services", "Blog", "Contact"].map((item) => (
-                  <li
-                    key={item}
-                    className="hover:text-red-600 transition-all duration-200 cursor-pointer"
-                  >
-                    {item}
-                  </li>
-                ))}
+                {["Home", "About", "Services", "Blog", "Contact"].map(
+                  (item) => (
+                    <li
+                      key={item}
+                      className="hover:text-red-600 transition-all duration-200 cursor-pointer"
+                    >
+                      {item}
+                    </li>
+                  )
+                )}
               </ul>
             </div>
           </div>
