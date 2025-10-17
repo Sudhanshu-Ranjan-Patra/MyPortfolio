@@ -52,7 +52,7 @@ function Projects() {
             <div
               key={index}
               className="flex flex-col bg-[#191C24] w-full sm:h-[260px] md:h-[2800px] lg:h-[280px] group relative"
-            >
+            >. 
               <div className="mt-10 mb-10 ml-10 sm:ml-10 md:ml-20 mr-5 sm:mr-10 md:mr-15">
                 <h2 className="text-2xl pl-5 sm:pl-0 sm:text-3xl md:text-3xl uppercase font-bold text-white">
                   {project.title}
