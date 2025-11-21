@@ -1,9 +1,9 @@
-import React from "react";
+import React,{ forwardRef } from "react";
 
-function Home() {
+const Home = forwardRef((props, ref) => {
   return (
-    <div className="bg-black [font-family:Oswald,sans-serif] font-bold">
-      <div className="bg-[url('../images/bg-img.png')] relative bg-no-repeat bg-center bg-cover h-120 sm:h-screen opacity-12 w-full"></div>
+    <section ref={ref} className="bg-black [font-family:Oswald,sans-serif] font-bold">
+      <div className="bg-[url('../images/bg-img.png')] relative bg-no-repeat bg-center bg-cover h-120 sm:h-screen opacity-10 w-full"></div>
       <div className="absolute top-1/4 sm:top-1/2 left-1/8 sm:left-1/5">
         <p className="text-2xl md:text-4xl flex gap-3 text-white tracking-wide">
           <p className=" text-red-600">
@@ -43,8 +43,10 @@ function Home() {
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
-}
+});
+
+Home.displayName = "Home";
 
 export default Home;

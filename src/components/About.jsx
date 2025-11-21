@@ -1,8 +1,9 @@
-import React from "react";
+import React,{ forwardRef } from "react";
 
-function About() {
+
+const About = forwardRef((props, ref) => {
   return (
-    <div className="bg-black [font-family:Oswald,sans-serif] font-bold">
+    <section ref={ref} className="bg-black [font-family:Oswald,sans-serif] font-bold">
       <div className="About grid grid-cols-1 sm:grid-cols-2">
         <div className="left relative m-20 sm:ml-60 sm:mr-5">
           <img className="" src="../images/SRP-image.jpg" alt="" />
@@ -49,8 +50,10 @@ function About() {
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
-}
+});
+
+About.displayName = 'About';
 
 export default About;

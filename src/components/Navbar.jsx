@@ -1,176 +1,294 @@
-// import React, { useState } from 'react'
+import React, { forwardRef } from "react";
+import emailjs from "@emailjs/browser";
+import { useState } from "react";
 
-// function Navbar() {
-//   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+const Contact = forwardRef((props, ref) => {
 
-//   const toggleMobileMenu = () => {
-//     setIsMobileMenuOpen(!isMobileMenuOpen);
-//   };
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: ""
+  });
 
-//   return (
-//     <div>
-//       <div className='flex flex-row justify-between items-center bg-[#191C24] w-screen h-16 sm:h-20 md:h-25 [font-family:Oswald,sans-serif] font-bold relative z-50'>
-//         {/* Logo */}
-//         <div className="logo flex gap-1 sm:gap-2 items-center text-2xl sm:text-3xl md:text-4xl text-red-600 ml-3 sm:ml-5 md:ml-20 cursor-pointer">
-//           <img className='w-12 sm:w-16 md:w-18' src="../images/DearCode-logo.png" alt="" />
-//           <span className="hidden xs:block">DEARCODE</span>
-//           <span className="xs:hidden text-xl">DC</span>
-//         </div>
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  }
 
-//         {/* Desktop Navigation */}
-//         <div className="nav-ops flex gap-4 sm:gap-6 md:gap-10 items-center text-lg font-black text-[#6C7293] mr-3 sm:mr-5 md:mr-10">
-//           <div className='hidden lg:flex gap-6 xl:gap-10 items-center text-sm xl:text-lg font-black text-[#6C7293]'>
-//             <span className='transition hover:text-red-600 cursor-pointer'>HOME</span>
-//             <span className='transition hover:text-red-600 cursor-pointer'>ABOUT</span>
-//             <span className='transition hover:text-red-600 cursor-pointer'>PROJECTS</span>
-//             <span className='transition hover:text-red-600 cursor-pointer'>SKILLS</span>
-//             <span className='transition hover:text-red-600 cursor-pointer'>CONTACT</span>
-//           </div>
+  const sendEmail = (e) => {
+    e.preventDefault();
 
-//           {/* Hire Me Button */}
-//           <button className='bg-red-600  text-sm sm:text-lg md:text-xl text-white px-3 py-1 sm:px-4 sm:py-1 md:px-8 md:py-2 font-normal transition hover:bg-red-700 cursor-pointer whitespace-nowrap'>
-//             Hire me ☞
-//           </button>
-
-//           {/* Mobile Menu Button */}
-//           <button
-//             onClick={toggleMobileMenu}
-//             className='lg:hidden flex flex-col gap-1 p-2 ml-2'
-//             aria-label="Toggle mobile menu"
-//           >
-//             <div className={`w-6 h-0.5 bg-white transition-all duration-300 ${isMobileMenuOpen ? 'rotate-45 translate-y-2' : ''}`}></div>
-//             <div className={`w-6 h-0.5 bg-white transition-all duration-300 ${isMobileMenuOpen ? 'opacity-0' : ''}`}></div>
-//             <div className={`w-6 h-0.5 bg-white transition-all duration-300 ${isMobileMenuOpen ? '-rotate-45 -translate-y-2' : ''}`}></div>
-//           </button>
-//         </div>
-//       </div>
-
-//       {/* Mobile Menu Overlay */}
-//       <div className={`lg:hidden fixed inset-0 bg-black bg-opacity-50 z-40 transition-opacity duration-300 ${
-//         isMobileMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible'
-//       }`} onClick={toggleMobileMenu}></div>
-
-//       {/* Mobile Menu */}
-//       <div className={`lg:hidden fixed top-16 sm:top-20 right-0 w-64 h-screen bg-[#191C24] z-50 transform transition-transform duration-300 ease-in-out [font-family:Oswald,sans-serif] ${
-//         isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'
-//       }`}>
-//         <div className='flex flex-col p-6 gap-6'>
-//           <div className='flex flex-col gap-4 text-lg font-black text-[#6C7293] border-b border-gray-600 pb-6'>
-//             <span className='transition hover:text-red-600 cursor-pointer py-2'>HOME</span>
-//             <span className='transition hover:text-red-600 cursor-pointer py-2'>ABOUT</span>
-//             <span className='transition hover:text-red-600 cursor-pointer py-2'>PROJECTS</span>
-//             <span className='transition hover:text-red-600 cursor-pointer py-2'>SKILLS</span>
-//             <span className='transition hover:text-red-600 cursor-pointer py-2'>CONTACT</span>
-//           </div>
-
-//         </div>
-//       </div>
-//     </div>
-//   )
-// }
-
-// export default Navbar;
-import React, { useState, useEffect } from "react";
-
-function Navbar() {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-
-  const toggleMobileMenu = () => {
-    setIsMobileMenuOpen(!isMobileMenuOpen);
+    emailjs.send(
+      "service_2vehzc9",
+      "template_7gjrvvx",
+      {
+        name: formData.name,
+        email: formData.email,
+        message: formData.message,
+        time: new Date().toLocaleString(),
+      },
+      "YlCu6nQUNtDHDWUw-"
+    ).then(() => {
+        alert("Message Sent Successfully!");
+        setFormData({ name: "", email: "", message: ""});
+    }).catch((err) => {
+      console.log(err);
+      alert("Failed to send message!");
+    });
   };
 
-  // 🔒 Scroll Lock on menu open
-  useEffect(() => {
-    if (isMobileMenuOpen) {
-      document.body.style.overflow = "hidden"; // disable scrolling
-    } else {
-      document.body.style.overflow = ""; // enable scrolling
-    }
-    // Cleanup when component unmounts
-    return () => (document.body.style.overflow = "");
-  }, [isMobileMenuOpen]);
+  // Quick link map for name => handler
+  const quickLinks = [
+    { name: "Home", handler: props.scrollToHome },
+    { name: "About", handler: props.scrollToAbout },
+    { name: "Projects", handler: props.scrollToProjects },
+    { name: "Skills", handler: props.scrollToSkill },
+  ];
+
+  // Social Icons Array
+  const socialIcons = [
+    { 
+      name: "Twitter", 
+      url: "https://twitter.com/sudhanshu_527",
+      icon: "https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/twitter.svg"
+    },
+    { 
+      name: "LinkedIn", 
+      url: "https://linkedin.com/in/sudhanshu-ranjan-patra",
+      icon: "https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/linked-in-alt.svg"
+    },
+    { 
+      name: "Instagram", 
+      url: "https://instagram.com/sudhanshu_ranjan_patra_",
+      icon: "https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/instagram.svg"
+    },
+    { 
+      name: "Discord", 
+      url: "https://discord.gg/sudhanshuranjanpatra_09862",
+      icon: "https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/discord.svg"
+    },
+    { 
+      name: "YouTube", 
+      url: "https://www.youtube.com/c/@sudhanshuranjanpatra",
+      icon: "https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/youtube.svg"
+    },
+    { 
+      name: "LeetCode", 
+      url: "https://www.leetcode.com/sudhanshu_ranjan_patra",
+      icon: "https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/leet-code.svg"
+    },
+    { 
+      name: "GeeksforGeeks", 
+      url: "https://auth.geeksforgeeks.org/user/patrasudhanoo28",
+      icon: "https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/geeks-for-geeks.svg"
+    },
+  ];
 
   return (
-    <div>
-      {/* Top Navbar */}
-      <div className="flex flex-row justify-between items-center bg-[#191C24] w-screen h-16 sm:h-20 md:h-25 [font-family:Oswald,sans-serif] font-bold relative z-50">
-        {/* Logo */}
-        <div className="logo flex gap-1 sm:gap-2 items-center text-2xl sm:text-3xl md:text-4xl text-red-600 ml-3 sm:ml-5 md:ml-20 cursor-pointer">
-          <img
-            className="w-12 sm:w-16 md:w-18"
-            src="../images/DearCode-logo.png"
-            alt=""
-          />
-          <span className=" xs:block">DEARCODE</span>
-        </div>
+    <section ref={ref} className="bg-black [font-family:Oswald,sans-serif] font-bold pb-10 px-4 md:px-8">
+      <div className="relative max-w-7xl mx-auto">
+        <div className="bg-[#191C24] p-6 md:p-8 rounded-xl text-white">
+          {/* Desktop Layout */}
+          <div className="hidden md:flex justify-between items-start gap-8">
+            {/* Left Section - Quick Links & Social Icons */}
+            <div className="w-1/4">
+              <h3 className="text-2xl font-bold mb-6">QUICK LINKS</h3>
+              <ul className="flex flex-col gap-3">
+                {quickLinks.map((item) => (
+                  <li
+                    key={item.name}
+                    className="hover:text-red-600 transition-all duration-200 cursor-pointer text-lg"
+                    onClick={item.handler}
+                  >
+                    {item.name}
+                  </li>
+                ))}
+              </ul>
 
-        {/* Desktop Navigation */}
-        <div className="nav-ops flex gap-4 sm:gap-6 md:gap-10 items-center text-lg font-black text-[#6C7293] mr-3 sm:mr-5 md:mr-10">
-          <div className="hidden lg:flex gap-6 xl:gap-10 items-center text-sm xl:text-lg font-black text-[#6C7293]">
-            <span className="transition hover:text-red-600 cursor-pointer">HOME</span>
-            <span className="transition hover:text-red-600 cursor-pointer">ABOUT</span>
-            <span className="transition hover:text-red-600 cursor-pointer">PROJECTS</span>
-            <span className="transition hover:text-red-600 cursor-pointer">SKILLS</span>
-            <span className="transition hover:text-red-600 cursor-pointer">CONTACT</span>
+              {/* Professional Social Icons Section */}
+              <div className="mt-10">
+                <p className="text-sm font-semibold text-gray-400 mb-5 tracking-widest uppercase">Connect With Me</p>
+                <div className="flex gap-4 flex-wrap">
+                  {socialIcons.map((social) => (
+                    <a
+                      key={social.name}
+                      href={social.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group relative"
+                      title={social.name}
+                    >
+                      <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-[#2A2F3A] to-[#1a1e28] flex items-center justify-center border border-gray-600 hover:border-red-600 transition-all duration-300 hover:shadow-lg hover:shadow-red-600/30">
+                        <img 
+                          src={social.icon} 
+                          alt={social.name}
+                          className="w-6 filter brightness-100 group-hover:brightness-0 group-hover:invert transition-all duration-300"
+                        />
+                      </div>
+                      <span className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-3 px-3 py-1.5 bg-red-600 text-white text-xs rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap font-semibold pointer-events-none">
+                        {social.name}
+                      </span>
+                    </a>
+                  ))}
+                </div>
+              </div>
+
+            </div>
+            {/* Right Section - Contact Form */}
+            <div className="w-2/3 relative">
+              <h3 className="text-2xl font-bold mb-6">GET IN TOUCH</h3>
+              <form className="flex flex-col gap-4 pr-20" onSubmit={sendEmail}>
+                <input
+                  type="text"
+                  name="name"
+                  placeholder="Your Name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  className="p-3 rounded bg-[#2A2F3A] text-white placeholder-gray-400 focus:ring-2 focus:ring-red-600 focus:outline-none transition-all duration-300"
+                  required
+                />
+
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="Your Email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  className="p-3 rounded bg-[#2A2F3A] text-white placeholder-gray-400 focus:ring-2 focus:ring-red-600 focus:outline-none transition-all duration-300"
+                  required
+                />
+
+                <textarea
+                  name="message"
+                  placeholder="Your Message"
+                  value={formData.message}
+                  onChange={handleChange}
+                  className="p-3 rounded bg-[#2A2F3A] text-white placeholder-gray-400 h-32 focus:ring-2 focus:ring-red-600 focus:outline-none resize-none transition-all duration-300"
+                  required
+                ></textarea>
+
+                <button
+                  type="submit"
+                  className="bg-red-600 hover:bg-[#d21717] transition-colors duration-300 text-white py-3 rounded-lg font-semibold"
+                >
+                  Send Message
+                </button>
+              </form>
+
+
+              {/* Overlapping Avatar Image */}
+              <div className="absolute -right-4 top-1/2 transform -translate-y-2/5 z-10">
+                <img
+                  className="w-50 h-80"
+                  src="../images/contact-img.png"
+                  alt="Contact"
+                />
+              </div>
+            </div>
           </div>
 
-          {/* Hire Me Button */}
-          <button className="bg-red-600 text-sm sm:text-lg md:text-xl text-white px-3 py-1 sm:px-4 sm:py-1 md:px-8 md:py-2 font-normal transition hover:bg-red-700 cursor-pointer whitespace-nowrap">
-            Hire me ☞
-          </button>
+          {/* Mobile Layout */}
+          <div className="md:hidden">
+            {/* Contact Form and Image Section */}
+            <div className=" flex flex-col sm:flex-row gap-6 mb-8">
+              <div className="flex-1">
+                <h3 className="text-xl font-bold mb-4">GET IN TOUCH</h3>
+                <form className="flex flex-col gap-3" onSubmit={sendEmail}>
+                  <input
+                    type="text"
+                    name="name"
+                    placeholder="Your Name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    className="p-3 rounded bg-[#2A2F3A] text-white placeholder-gray-400 focus:ring-2 focus:ring-red-600 focus:outline-none transition-all duration-300"
+                    required
+                  />
 
-          {/* Mobile Menu Button */}
-          <button
-            onClick={toggleMobileMenu}
-            className="lg:hidden flex flex-col gap-1 p-2 ml-2"
-            aria-label="Toggle mobile menu"
-          >
-            <div
-              className={`w-6 h-0.5 bg-white transition-all duration-300 ${
-                isMobileMenuOpen ? "rotate-45 translate-y-2" : ""
-              }`}
-            ></div>
-            <div
-              className={`w-6 h-0.5 bg-white transition-all duration-300 ${
-                isMobileMenuOpen ? "opacity-0" : ""
-              }`}
-            ></div>
-            <div
-              className={`w-6 h-0.5 bg-white transition-all duration-300 ${
-                isMobileMenuOpen ? "-rotate-45 -translate-y-2" : ""
-              }`}
-            ></div>
-          </button>
-        </div>
-      </div>
+                  <input
+                    type="email"
+                    name="email"
+                    placeholder="Your Email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    className="p-3 rounded bg-[#2A2F3A] text-white placeholder-gray-400 focus:ring-2 focus:ring-red-600 focus:outline-none transition-all duration-300"
+                    required
+                  />
 
-      {/* Mobile Menu Overlay */}
-      <div
-        className={`lg:hidden fixed inset-0 bg-black bg-opacity-20 backdrop-blur-sm z-40 transition-opacity duration-300 ${
-          isMobileMenuOpen ? "opacity-100 visible" : "opacity-0 invisible"
-        }`}
-        onClick={toggleMobileMenu}
-      ></div>
+                  <textarea
+                    name="message"
+                    placeholder="Your Message"
+                    value={formData.message}
+                    onChange={handleChange}
+                    className="p-3 rounded bg-[#2A2F3A] text-white placeholder-gray-400 h-24 focus:ring-2 focus:ring-red-600 focus:outline-none resize-none transition-all duration-300"
+                    required
+                  ></textarea>
 
-      {/* Mobile Menu */}
-      <div
-        className={`lg:hidden fixed top-16 sm:top-20 right-0 w-64 h-screen 
-  bg-[#191C24]/80 backdrop-blur-40 z-50 transform transition-transform duration-300 ease-in-out [font-family:Oswald,sans-serif] ${
-    isMobileMenuOpen ? "translate-x-0" : "translate-x-full"
-  }`}
-      >
-        <div className="flex flex-col p-6 gap-6">
-          <div className="flex flex-col gap-4 text-lg font-black text-[#6C7293] border-b border-gray-600 pb-6">
-            <span className="transition hover:text-red-600 cursor-pointer py-2">HOME</span>
-            <span className="transition hover:text-red-600 cursor-pointer py-2">ABOUT</span>
-            <span className="transition hover:text-red-600 cursor-pointer py-2">PROJECTS</span>
-            <span className="transition hover:text-red-600 cursor-pointer py-2">SKILLS</span>
-            <span className="transition hover:text-red-600 cursor-pointer py-2">CONTACT</span>
+                  <button
+                    type="submit"
+                    className="bg-red-600 hover:bg-[#d21717] transition-colors duration-300 text-white py-3 rounded-lg font-semibold"
+                  >
+                    Send Message
+                  </button>
+                </form>
+
+              </div>
+
+              {/* Image beside form on mobile */}
+              <div className=" absolute bottom-2 right-8 flex justify-center items-center sm:w-fit sm:h-fit">
+                <img
+                  className="w-fit h-60 sm:w-fit sm:h-60 "
+                  src="../images/contact-img.png"
+                  alt="Contact"
+                />
+              </div>
+            </div>
+
+            {/* Quick Links below on mobile */}
+            <div>
+              <h3 className="text-xl font-bold mb-4">QUICK LINKS</h3>
+              <ul className="flex flex-col gap-2">
+                {quickLinks.map((item) => (
+                  <li
+                    key={item.name}
+                    className="hover:text-red-600 transition-all duration-200 cursor-pointer"
+                    onClick={item.handler}
+                  >
+                    {item.name}
+                  </li>
+                ))}
+              </ul>
+
+              {/* Professional Social Icons - Mobile */}
+              <div className="mt-6">
+                <p className="text-sm font-semibold text-gray-400 mb-4 tracking-widest uppercase">Connect With Me</p>
+                <div className="flex gap-3 flex-wrap">
+                  {socialIcons.map((social) => (
+                    <a
+                      key={social.name}
+                      href={social.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group relative"
+                      title={social.name}
+                    >
+                      <div className="w-11 h-11 rounded-lg bg-gradient-to-br from-[#2A2F3A] to-[#1a1e28] flex items-center justify-center border border-gray-600 hover:border-red-600 transition-all duration-300 hover:shadow-lg hover:shadow-red-600/30">
+                        <img 
+                          src={social.icon} 
+                          alt={social.name}
+                          className="w-5 filter brightness-100 group-hover:brightness-0 group-hover:invert transition-all duration-300"
+                        />
+                      </div>
+                    </a>
+                  ))}
+                </div>
+              </div>
+
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
-}
+});
 
-export default Navbar;
+Contact.displayName = 'Contact';
+export default Contact;

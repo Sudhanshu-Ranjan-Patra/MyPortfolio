@@ -1,8 +1,8 @@
-import React from "react";
+import React,{ forwardRef } from "react";
 
-function Skill() {
+const Skill = forwardRef((props, ref) => {
   return (
-    <div className="bg-black [font-family:Oswald,sans-serif] font-bold pb-10">
+    <section ref={ref} className="bg-black [font-family:Oswald,sans-serif] font-bold pb-10">
       <div className="flex flex-col justify-center items-center pt-10">
         <button className="button-primary ">My Skills</button>
       </div>
@@ -119,8 +119,10 @@ function Skill() {
           />
         </div>
       </div>
-    </div>
+    </section>
   );
-}
+});
+
+Skill.displayName = 'Skill';
 
 export default Skill;

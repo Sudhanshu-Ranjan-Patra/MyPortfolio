@@ -1,6 +1,7 @@
-import React from "react";
+import React,{ forwardRef } from "react";
 
-function Projects() {
+
+const Projects = forwardRef((props, ref) => {
   const projectData = [
     {
       title: "Medifit",
@@ -41,7 +42,7 @@ function Projects() {
   ];
 
   return (
-    <div className="bg-black [font-family:Oswald,sans-serif] font-bold pb-10">
+    <section ref={ref} className="bg-black [font-family:Oswald,sans-serif] font-bold pb-10">
       <div className="flex flex-col justify-center items-center">
         <button className="button-primary">Projects</button>
         <h2 className="text-4xl font-bold text-white mt-5">WHAT I BUILD</h2>
@@ -76,8 +77,10 @@ function Projects() {
           ))}
         </div>
       </div>
-    </div>
+    </section>
   );
-}
+});
+
+Projects.displayName = 'Projects';
 
 export default Projects;
