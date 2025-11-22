@@ -47,6 +47,11 @@ const Contact = forwardRef((props, ref) => {
   // Social icons array
   const socialIcons = [
     { 
+      name: "GitHub", 
+      url: "https://github.com/Sudhanshu-Ranjan-Patra",
+      icon: "https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/github.svg"
+    },
+    { 
       name: "Twitter", 
       url: "https://twitter.com/sudhanshu_527",
       icon: "https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/twitter.svg"
