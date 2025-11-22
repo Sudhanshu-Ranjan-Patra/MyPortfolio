@@ -44,6 +44,45 @@ const Contact = forwardRef((props, ref) => {
     { name: "Skills", handler: props.scrollToSkill },
   ];
 
+  // Social icons array
+  const socialIcons = [
+    { 
+      name: "Twitter", 
+      url: "https://twitter.com/sudhanshu_527",
+      icon: "https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/twitter.svg"
+    },
+    { 
+      name: "LinkedIn", 
+      url: "https://linkedin.com/in/sudhanshu-ranjan-patra",
+      icon: "https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/linked-in-alt.svg"
+    },
+    { 
+      name: "Instagram", 
+      url: "https://instagram.com/sudhanshu_ranjan_patra_",
+      icon: "https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/instagram.svg"
+    },
+    { 
+      name: "Discord", 
+      url: "https://discord.gg/sudhanshuranjanpatra_09862",
+      icon: "https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/discord.svg"
+    },
+    { 
+      name: "YouTube", 
+      url: "https://www.youtube.com/c/@sudhanshuranjanpatra",
+      icon: "https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/youtube.svg"
+    },
+    { 
+      name: "LeetCode", 
+      url: "https://www.leetcode.com/sudhanshu_ranjan_patra",
+      icon: "https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/leet-code.svg"
+    },
+    { 
+      name: "GeeksforGeeks", 
+      url: "https://auth.geeksforgeeks.org/user/patrasudhanoo28",
+      icon: "https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/geeks-for-geeks.svg"
+    },
+  ];
+
   return (
     <section ref={ref} className="bg-black [font-family:Oswald,sans-serif] font-bold pb-10 px-4 md:px-8">
       <div className="relative max-w-7xl mx-auto">
@@ -65,35 +104,32 @@ const Contact = forwardRef((props, ref) => {
                 ))}
               </ul>
 
-              {/* Social Icons */}
-              <div className="mt-6 flex gap-4 items-center">
-                <a href="https://twitter.com/sudhanshu_527" target="_blank">
-                  <img src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/twitter.svg" className="w-7 hover:scale-110 transition" />
-                </a>
-
-                <a href="https://linkedin.com/in/sudhanshu-ranjan-patra" target="_blank">
-                  <img src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/linked-in-alt.svg" className="w-7 hover:scale-110 transition" />
-                </a>
-
-                <a href="https://instagram.com/sudhanshu_ranjan_patra_" target="_blank">
-                  <img src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/instagram.svg" className="w-7 hover:scale-110 transition" />
-                </a>
-
-                <a href="https://discord.gg/sudhanshuranjanpatra_09862" target="_blank">
-                  <img src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/discord.svg" className="w-7 hover:scale-110 transition" />
-                </a>
-
-                <a href="https://www.youtube.com/c/@sudhanshuranjanpatra" target="_blank">
-                  <img src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/youtube.svg" className="w-7 hover:scale-110 transition" />
-                </a>
-
-                <a href="https://www.leetcode.com/sudhanshu_ranjan_patra" target="_blank">
-                  <img src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/leet-code.svg" className="w-7 hover:scale-110 transition" />
-                </a>
-
-                <a href="https://auth.geeksforgeeks.org/user/patrasudhanoo28" target="_blank">
-                  <img src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/geeks-for-geeks.svg" className="w-7 hover:scale-110 transition" />
-                </a>
+              {/* Social Icons - Professional Design */}
+              <div className="mt-12">
+                <p className="text-xs font-semibold text-gray-500 mb-4 tracking-widest">CONNECT WITH ME</p>
+                <div className="flex gap-3 flex-wrap">
+                  {socialIcons.map((social) => (
+                    <a
+                      key={social.name}
+                      href={social.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group relative"
+                      title={social.name}
+                    >
+                      <div className="w-12 h-12 rounded-lg bg-[#2A2F3A] flex items-center justify-center border border-gray-600 hover:border-red-600 transition-all duration-300 hover:bg-red-600/10 hover:shadow-lg hover:shadow-red-600/20">
+                        <img 
+                          src={social.icon} 
+                          alt={social.name}
+                          className="w-6 filter brightness-100 group-hover:brightness-0 group-hover:invert transition-all duration-300"
+                        />
+                      </div>
+                      <span className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2 py-1 bg-red-600 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">
+                        {social.name}
+                      </span>
+                    </a>
+                  ))}
+                </div>
               </div>
 
             </div>
@@ -215,35 +251,29 @@ const Contact = forwardRef((props, ref) => {
                 ))}
               </ul>
 
-              {/* Social Icons */}
-              <div className="mt-5 flex gap-4 flex-wrap">
-                <a href="https://twitter.com/sudhanshu_527" target="_blank">
-                  <img src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/twitter.svg" className="w-7" />
-                </a>
-
-                <a href="https://linkedin.com/in/sudhanshu-ranjan-patra" target="_blank">
-                  <img src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/linked-in-alt.svg" className="w-7" />
-                </a>
-
-                <a href="https://instagram.com/sudhanshu_ranjan_patra_" target="_blank">
-                  <img src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/instagram.svg" className="w-7" />
-                </a>
-
-                <a href="https://discord.gg/sudhanshuranjanpatra_09862" target="_blank">
-                  <img src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/discord.svg" className="w-7" />
-                </a>
-
-                <a href="https://www.youtube.com/c/@sudhanshuranjanpatra" target="_blank">
-                  <img src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/youtube.svg" className="w-7" />
-                </a>
-
-                <a href="https://www.leetcode.com/sudhanshu_ranjan_patra" target="_blank">
-                  <img src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/leet-code.svg" className="w-7" />
-                </a>
-
-                <a href="https://auth.geeksforgeeks.org/user/patrasudhanoo28" target="_blank">
-                  <img src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/geeks-for-geeks.svg" className="w-7" />
-                </a>
+              {/* Social Icons - Professional Design Mobile */}
+              <div className="mt-8">
+                <p className="text-xs font-semibold text-gray-500 mb-4 tracking-widest">CONNECT WITH ME</p>
+                <div className="flex gap-3 flex-wrap">
+                  {socialIcons.map((social) => (
+                    <a
+                      key={social.name}
+                      href={social.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group relative"
+                      title={social.name}
+                    >
+                      <div className="w-10 h-10 rounded-lg bg-[#2A2F3A] flex items-center justify-center border border-gray-600 hover:border-red-600 transition-all duration-300 hover:bg-red-600/10 hover:shadow-lg hover:shadow-red-600/20">
+                        <img 
+                          src={social.icon} 
+                          alt={social.name}
+                          className="w-5 filter brightness-100 group-hover:brightness-0 group-hover:invert transition-all duration-300"
+                        />
+                      </div>
+                    </a>
+                  ))}
+                </div>
               </div>
 
             </div>
