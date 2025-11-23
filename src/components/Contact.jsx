@@ -44,7 +44,6 @@ const Contact = forwardRef((props, ref) => {
     { name: "Skills", handler: props.scrollToSkill },
   ];
 
-  // Social icons array
   const socialIcons = [
     { 
       name: "GitHub", 
