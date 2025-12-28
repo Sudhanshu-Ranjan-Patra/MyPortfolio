@@ -89,7 +89,8 @@ function Navbar({ scrollToHome, scrollToAbout, scrollToProjects, scrollToSkill, 
           isMobileMenuOpen ? "opacity-100 visible" : "opacity-0 invisible"
         }`}
         onClick={toggleMobileMenu}
-      ></div>
+      >
+      </div>
 
       {/* Mobile Menu */}
       <div
