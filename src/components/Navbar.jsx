@@ -18,7 +18,7 @@ function Navbar({ scrollToHome, scrollToAbout, scrollToProjects, scrollToSkill, 
     return () => (document.body.style.overflow = "");
   }, [isMobileMenuOpen]);
 
-   // A helper function to close the mobile menu after clicking a link
+  // A helper function to close the mobile menu after clicking a link
   const handleNavClick = (scrollHandler) => {
     scrollHandler(); // Call the scrolling function passed from App.js
     setIsMobileMenuOpen(false); // Close the mobile menu
@@ -49,7 +49,7 @@ function Navbar({ scrollToHome, scrollToAbout, scrollToProjects, scrollToSkill, 
           </div>
 
           {/* Hire Me Button */}
-          <a 
+          <a
             href="https://drive.google.com/file/d/1_HSX_4nQlJ0Ht-fQhmrPwUSQ6H_Vdfvy/view"
             target="_blank"
             rel="noopener noreferrer"
@@ -65,19 +65,16 @@ function Navbar({ scrollToHome, scrollToAbout, scrollToProjects, scrollToSkill, 
             aria-label="Toggle mobile menu"
           >
             <div
-              className={`w-6 h-0.5 bg-white transition-all duration-300 ${
-                isMobileMenuOpen ? "rotate-45 translate-y-2" : ""
-              }`}
+              className={`w-6 h-0.5 bg-white transition-all duration-300 ${isMobileMenuOpen ? "rotate-45 translate-y-2" : ""
+                }`}
             ></div>
             <div
-              className={`w-6 h-0.5 bg-white transition-all duration-300 ${
-                isMobileMenuOpen ? "opacity-0" : ""
-              }`}
+              className={`w-6 h-0.5 bg-white transition-all duration-300 ${isMobileMenuOpen ? "opacity-0" : ""
+                }`}
             ></div>
             <div
-              className={`w-6 h-0.5 bg-white transition-all duration-300 ${
-                isMobileMenuOpen ? "-rotate-45 -translate-y-2" : ""
-              }`}
+              className={`w-6 h-0.5 bg-white transition-all duration-300 ${isMobileMenuOpen ? "-rotate-45 -translate-y-2" : ""
+                }`}
             ></div>
           </button>
         </div>
@@ -85,9 +82,8 @@ function Navbar({ scrollToHome, scrollToAbout, scrollToProjects, scrollToSkill, 
 
       {/* Mobile Menu Overlay */}
       <div
-        className={`lg:hidden fixed inset-0 bg-black bg-opacity-20 backdrop-blur-sm z-40 transition-opacity duration-300 ${
-          isMobileMenuOpen ? "opacity-100 visible" : "opacity-0 invisible"
-        }`}
+        className={`lg:hidden fixed inset-0 bg-black bg-opacity-20 backdrop-blur-sm z-40 transition-opacity duration-300 ${isMobileMenuOpen ? "opacity-100 visible" : "opacity-0 invisible"
+          }`}
         onClick={toggleMobileMenu}
       >
       </div>
@@ -95,9 +91,8 @@ function Navbar({ scrollToHome, scrollToAbout, scrollToProjects, scrollToSkill, 
       {/* Mobile Menu */}
       <div
         className={`lg:hidden fixed top-16 sm:top-20 right-0 w-64 h-screen 
-        bg-[#191C24]/80 backdrop-blur-40 z-50 transform transition-transform duration-300 ease-in-out [font-family:Oswald,sans-serif] ${
-        isMobileMenuOpen ? "translate-x-0" : "translate-x-full"
-  }`}
+        bg-[#191C24]/80 backdrop-blur-40 z-50 transform transition-transform duration-300 ease-in-out [font-family:Oswald,sans-serif] ${isMobileMenuOpen ? "translate-x-0" : "translate-x-full"
+          }`}
       >
         <div className="flex flex-col p-6 gap-6">
           <div className="flex flex-col gap-4 text-lg font-black text-[#6C7293] border-b border-gray-600 pb-6">
