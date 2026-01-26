@@ -1,4 +1,4 @@
-import React,{ forwardRef } from "react";
+import React, { forwardRef } from "react";
 
 const Skill = forwardRef((props, ref) => {
   return (
