@@ -222,7 +222,7 @@ const Contact = forwardRef((props, ref) => {
           
           {/* Quick Links Footer */}
           <div className="mt-16 pt-8 border-t border-zinc-800 flex flex-col sm:flex-row justify-between items-center gap-4 px-2">
-            <h4 className="text-white font-bold font-outfit text-xl">DEAR<span className="text-cyan-400">CODE</span></h4>
+            <h4 className="text-white font-bold font-outfit text-xl">DEAR<span className="text-cyan-400">CODER</span></h4>
             <div className="flex items-center gap-6">
               {quickLinks.map((item) => (
                 <span
