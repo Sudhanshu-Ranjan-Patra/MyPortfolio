@@ -59,13 +59,11 @@ function Navbar({ scrollToHome, scrollToAbout, scrollToProjects, scrollToSkill, 
             onClick={scrollToHome}
             className="flex items-center gap-3 cursor-pointer group"
           >
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-500 to-emerald-400 p-[2px] shadow-lg shadow-cyan-500/20 group-hover:shadow-cyan-500/40 transition-all duration-300">
-              <div className="w-full h-full bg-zinc-950 rounded-[10px] flex items-center justify-center">
-                <span className="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-emerald-400 font-outfit">DC</span>
-              </div>
+            <div className="w-12 h-12 flex items-center justify-center transition-transform duration-300 group-hover:scale-110">
+              <img src="/images/SRP-LOGO.png" alt="SRP Logo" className="w-full h-full object-contain drop-shadow-lg" />
             </div>
             <span className="text-xl md:text-2xl font-bold text-white tracking-wide font-outfit">
-              DEAR<span className="text-cyan-400">CODE</span>
+              DEAR<span className="text-cyan-400">CODER</span>
             </span>
           </div>
 
