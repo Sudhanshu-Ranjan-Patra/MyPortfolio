@@ -14,7 +14,7 @@ const skillData = [
   { name: 'DSA', color: '#a855f7', position: [2.5, -2.5, -0.5], icon: 'https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/leet-code.svg' },
 ];
 
-const SkillsCanvas = () => {
+const SkillsCanvas = ({ viewState }) => {
   const sharedNodes = React.useRef([]);
 
   return (
@@ -35,7 +35,7 @@ const SkillsCanvas = () => {
         
         <Suspense fallback={null}>
           {skillData.map((skill, index) => (
-            <SkillNode key={index} index={index} sharedNodes={sharedNodes} {...skill} />
+            <SkillNode key={index} index={index} sharedNodes={sharedNodes} viewState={viewState} {...skill} />
           ))}
           
           <Environment preset="city" />

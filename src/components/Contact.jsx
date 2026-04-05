@@ -105,8 +105,8 @@ const Contact = forwardRef((props, ref) => {
                     </div>
                     <div className="flex flex-col">
                       <span className="text-zinc-500 text-sm font-medium">Email</span>
-                      <a href="mailto:sudhanshuranjanpatra@gmail.com" className="text-white hover:text-cyan-400 transition-colors">
-                        sudhanshuranjanpatra@gmail.com
+                      <a href="mailto:patrasudhanshuranjan" className="text-white hover:text-cyan-400 transition-colors">
+                        patrasudhanshuranjan@gmail.com
                       </a>
                     </div>
                   </div>
@@ -117,7 +117,7 @@ const Contact = forwardRef((props, ref) => {
                     </div>
                     <div className="flex flex-col">
                       <span className="text-zinc-500 text-sm font-medium">Location</span>
-                      <span className="text-white">Odisha, India</span>
+                      <span className="text-white">Bhubaneswar, Odisha, India</span>
                     </div>
                   </div>
                 </div>
@@ -166,7 +166,7 @@ const Contact = forwardRef((props, ref) => {
                       value={formData.name}
                       onChange={handleChange}
                       className="bg-zinc-950/80 border border-zinc-800 text-white rounded-xl px-4 py-3 outline-none focus:border-cyan-500/50 focus:ring-1 focus:ring-cyan-500/50 transition-all font-light"
-                      placeholder="John Doe"
+                      placeholder="Harry Potter"
                     />
                   </div>
                   <div className="flex flex-col gap-1">
@@ -178,7 +178,7 @@ const Contact = forwardRef((props, ref) => {
                       value={formData.email}
                       onChange={handleChange}
                       className="bg-zinc-950/80 border border-zinc-800 text-white rounded-xl px-4 py-3 outline-none focus:border-cyan-500/50 focus:ring-1 focus:ring-cyan-500/50 transition-all font-light"
-                      placeholder="john@example.com"
+                      placeholder="harry@example.com"
                     />
                   </div>
                 </div>

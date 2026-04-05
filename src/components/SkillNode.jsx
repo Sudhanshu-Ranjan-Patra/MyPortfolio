@@ -2,9 +2,11 @@ import React, { useRef, useState, useMemo } from 'react';
 import { useFrame, useThree, useLoader } from '@react-three/fiber';
 import * as THREE from 'three';
 
-const SkillNode = ({ position, color, icon, name, index, sharedNodes }) => {
+const SkillNode = ({ position, color, icon, name, index, sharedNodes, viewState }) => {
   const meshRef = useRef();
   const groupRef = useRef();
+  const planeRef = useRef();
+  const targetPos = useRef(new THREE.Vector3());
 
   // Dragging state
   const [isDragging, setIsDragging] = useState(false);
@@ -24,13 +26,37 @@ const SkillNode = ({ position, color, icon, name, index, sharedNodes }) => {
 
   // Velocity-driven motion state and unique wobble phases
   const motionState = useRef({
-    vx: (Math.random() - 0.5) * 1.5,
-    vy: (Math.random() - 0.5) * 1.5,
+    vx: (Math.random() - 0.5) * 0.5,
+    vy: (Math.random() - 0.5) * 0.5,
     wobbleSpeedX: 1 + Math.random(),
     wobbleSpeedY: 1 + Math.random(),
     phaseX: Math.random() * Math.PI * 2,
     phaseY: Math.random() * Math.PI * 2,
   });
+
+  // Calculate destination bounds when triggering transition
+  React.useEffect(() => {
+    if (viewState === "TO_GRID" || viewState === "GRID") {
+      const targetDOM = document.getElementById(`skill-target-${index}`);
+      if (targetDOM && gl?.domElement) {
+        const canvasRect = gl.domElement.getBoundingClientRect();
+        const targetRect = targetDOM.getBoundingClientRect();
+
+        // Target specifically the icon area on the left of the card
+        const paddingLeft = 24; // p-6 roughly
+        const centerX = targetRect.left + paddingLeft + 16; // 16 is half the icon width
+        const centerY = targetRect.top + targetRect.height / 2;
+
+        targetPos.current.x = ((centerX - canvasRect.left) / canvasRect.width) * viewport.width - (viewport.width / 2);
+        targetPos.current.y = -(((centerY - canvasRect.top) / canvasRect.height) * viewport.height - (viewport.height / 2));
+        targetPos.current.z = 0.5; // slight pop out
+      }
+    } else if (viewState === "TO_FREE") {
+      // Explode outwards gently upon returning to free mode
+      motionState.current.vx = (Math.random() - 0.5) * 5.5;
+      motionState.current.vy = (Math.random() - 0.5) * 5.5;
+    }
+  }, [viewState, index, gl, viewport]);
 
   // Register this node to the shared array for collision detection
   React.useEffect(() => {
@@ -42,6 +68,15 @@ const SkillNode = ({ position, color, icon, name, index, sharedNodes }) => {
   // Fluid bounded animation with Collision detection
   useFrame((state, delta) => {
     if (!groupRef.current || !meshRef.current) return;
+
+    // Transition Handler
+    if (viewState === "TO_GRID" || viewState === "GRID") {
+      groupRef.current.position.lerp(targetPos.current, 0.1);
+      groupRef.current.rotation.x = THREE.MathUtils.lerp(groupRef.current.rotation.x, 0, 0.1);
+      groupRef.current.rotation.y = THREE.MathUtils.lerp(groupRef.current.rotation.y, 0, 0.1);
+      groupRef.current.scale.lerp(new THREE.Vector3(0.3, 0.3, 0.3), 0.1);
+      return;
+    }
 
     if (!isDragging) {
       const pos = groupRef.current.position;
@@ -61,11 +96,11 @@ const SkillNode = ({ position, color, icon, name, index, sharedNodes }) => {
       // 3. Strict AABB (Axis-Aligned Bounding Box) Collision Detection
       if (sharedNodes && sharedNodes.current.length > 0) {
         // Our glowing card boundary width/height is exactly 1.22
-        const boxSize = 1.22; 
+        const boxSize = 1.22;
 
         for (let i = 0; i < sharedNodes.current.length; i++) {
           if (i === index) continue;
-          
+
           const other = sharedNodes.current[i];
           if (!other || !other.group.current) continue;
 
@@ -79,15 +114,15 @@ const SkillNode = ({ position, color, icon, name, index, sharedNodes }) => {
           if (overlapX > 0 && overlapY > 0) {
             // Cards are actively penetrating on both axes (strict collision hit)!
             const dotProduct = dx * (mem.vx - other.motion.current.vx) + dy * (mem.vy - other.motion.current.vy);
-            
+
             if (dotProduct < 0) {
               // Elastic bounce: Swap velocities accurately
               const tempVx = mem.vx;
               const tempVy = mem.vy;
-              
+
               mem.vx = other.motion.current.vx;
               mem.vy = other.motion.current.vy;
-              
+
               other.motion.current.vx = tempVx;
               other.motion.current.vy = tempVy;
 

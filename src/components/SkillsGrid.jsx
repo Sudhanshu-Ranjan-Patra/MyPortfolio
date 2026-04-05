@@ -1,7 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 
-const SkillsGrid = ({ skills }) => {
+const SkillsGrid = ({ skills, viewState }) => {
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -12,10 +12,13 @@ const SkillsGrid = ({ skills }) => {
       {skills.map((skill, index) => (
         <motion.div
           key={skill.name}
+          id={`skill-target-${index}`}
           initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-50px" }}
-          transition={{ duration: 0.5, delay: index * 0.1 }}
+          animate={{ 
+            opacity: viewState === 'GRID' ? 1 : 0, 
+            y: viewState === 'GRID' ? 0 : 30 
+          }}
+          transition={{ duration: 0.5, delay: viewState === 'GRID' ? index * 0.1 : 0 }}
           className="glass-card p-6 flex flex-col justify-between hover:bg-zinc-800/80 transition-all duration-300"
         >
           <div className="flex justify-between items-center mb-6">
@@ -34,9 +37,8 @@ const SkillsGrid = ({ skills }) => {
           <div className="w-full bg-zinc-800/50 rounded-full h-1.5 overflow-hidden">
             <motion.div
               initial={{ width: 0 }}
-              whileInView={{ width: `${skill.level}%` }}
-              viewport={{ once: true }}
-              transition={{ duration: 1, delay: 0.3 + (index * 0.1), ease: "easeOut" }}
+              animate={{ width: viewState === 'GRID' ? `${skill.level}%` : 0 }}
+              transition={{ duration: 1, delay: viewState === 'GRID' ? 0.3 + (index * 0.1) : 0, ease: "easeOut" }}
               className={`h-full rounded-full ${skill.bg} shadow-[0_0_10px_currentColor]`}
             ></motion.div>
           </div>

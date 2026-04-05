@@ -1,4 +1,4 @@
-import React, { forwardRef, useState } from "react";
+import React, { forwardRef, useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import SkillsGrid from "./SkillsGrid";
 import SkillsCanvas from "./SkillsCanvas";
@@ -15,7 +15,27 @@ const skills = [
 ];
 
 const Skill = forwardRef((props, ref) => {
-  const [isGridMode, setIsGridMode] = useState(false);
+  // States: "FREE", "TO_GRID", "GRID", "TO_FREE"
+  const [viewState, setViewState] = useState("FREE");
+
+  // Automatically resolve transitions after 600ms
+  useEffect(() => {
+    if (viewState === "TO_GRID") {
+      const timer = setTimeout(() => setViewState("GRID"), 600);
+      return () => clearTimeout(timer);
+    } else if (viewState === "TO_FREE") {
+      const timer = setTimeout(() => setViewState("FREE"), 600);
+      return () => clearTimeout(timer);
+    }
+  }, [viewState]);
+
+  const handleToggle = (targetGrid) => {
+    if (targetGrid && (viewState === "FREE" || viewState === "TO_FREE")) {
+      setViewState("TO_GRID");
+    } else if (!targetGrid && (viewState === "GRID" || viewState === "TO_GRID")) {
+      setViewState("TO_FREE");
+    }
+  };
 
   return (
     <section ref={ref} className="bg-zinc-950 py-24 sm:py-32 relative min-h-screen">
@@ -39,31 +59,45 @@ const Skill = forwardRef((props, ref) => {
 
           <div className="flex bg-zinc-900 border border-zinc-800 rounded-lg p-1 overflow-x-auto w-full sm:w-auto overflow-y-hidden scrollbar-hide">
             <button
-              onClick={() => setIsGridMode(false)}
-              className={`flex-1 sm:flex-none flex justify-center items-center gap-2 px-4 py-2 rounded-md transition-all duration-300 text-sm font-medium whitespace-nowrap ${!isGridMode ? 'bg-cyan-500/20 text-cyan-400 shadow-[0_0_10px_rgba(34,211,238,0.2)]' : 'text-zinc-400 hover:text-white hover:bg-zinc-800'}`}
+              onClick={() => handleToggle(false)}
+              className={`flex-1 sm:flex-none flex justify-center items-center gap-2 px-4 py-2 rounded-md transition-all duration-300 text-sm font-medium whitespace-nowrap ${(viewState === "FREE" || viewState === "TO_FREE") ? 'bg-cyan-500/20 text-cyan-400 shadow-[0_0_10px_rgba(34,211,238,0.2)]' : 'text-zinc-400 hover:text-white hover:bg-zinc-800'}`}
             >
               <Cuboid size={16} /> Free Mode
             </button>
             <button
-              onClick={() => setIsGridMode(true)}
-              className={`flex-1 sm:flex-none flex justify-center items-center gap-2 px-4 py-2 rounded-md transition-all duration-300 text-sm font-medium whitespace-nowrap ${isGridMode ? 'bg-emerald-500/20 text-emerald-400 shadow-[0_0_10px_rgba(16,185,129,0.2)]' : 'text-zinc-400 hover:text-white hover:bg-zinc-800'}`}
+              onClick={() => handleToggle(true)}
+              className={`flex-1 sm:flex-none flex justify-center items-center gap-2 px-4 py-2 rounded-md transition-all duration-300 text-sm font-medium whitespace-nowrap ${(viewState === "GRID" || viewState === "TO_GRID") ? 'bg-emerald-500/20 text-emerald-400 shadow-[0_0_10px_rgba(16,185,129,0.2)]' : 'text-zinc-400 hover:text-white hover:bg-zinc-800'}`}
             >
               <LayoutGrid size={16} /> Organize Skills
             </button>
           </div>
         </motion.div>
 
-        {/* Dynamic Mode Content */}
-        <div className="w-full px-0 sm:px-6 lg:px-12">
-          <AnimatePresence mode="wait">
-            {!isGridMode ? (
-              <SkillsCanvas key="canvas" />
-            ) : (
-              <div key="grid" className="px-6 sm:px-0">
-                <SkillsGrid skills={skills} />
-              </div>
-            )}
-          </AnimatePresence>
+        {/* Dynamic Mode Content with Overlap Architecture */}
+        <div className="w-full px-0 sm:px-6 lg:px-12 relative min-h-[500px] lg:min-h-[600px]">
+          
+          {/* Grid Mode (renders behind Canvas invisibly until needed) */}
+          <div 
+            className="w-full transition-opacity duration-300 px-6 sm:px-0"
+            style={{ 
+              opacity: viewState === "GRID" ? 1 : 0, 
+              pointerEvents: viewState === "GRID" ? "auto" : "none" 
+            }}
+          >
+            <SkillsGrid skills={skills} viewState={viewState} />
+          </div>
+
+          {/* Canvas Mode (renders layered on top) */}
+          <div 
+            className="absolute inset-x-0 top-0 transition-opacity duration-300 z-10"
+            style={{ 
+              opacity: viewState === "GRID" ? 0 : 1, 
+              pointerEvents: (viewState === "FREE" || viewState === "TO_FREE") ? "auto" : "none" 
+            }}
+          >
+            <SkillsCanvas viewState={viewState} />
+          </div>
+
         </div>
 
       </div>

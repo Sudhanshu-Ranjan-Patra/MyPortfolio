@@ -1,6 +1,6 @@
 import React, { forwardRef } from "react";
 import { motion } from "framer-motion";
-import { Code2, Monitor, ArrowRight } from "lucide-react";
+import { Code2, Monitor, ArrowRight, Server, Brain } from "lucide-react";
 
 const About = forwardRef((props, ref) => {
   return (
@@ -10,8 +10,8 @@ const About = forwardRef((props, ref) => {
       <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-emerald-900/10 rounded-full blur-[100px] pointer-events-none"></div>
 
       <div className="container mx-auto px-6 lg:px-12 relative z-10">
-        
-        <motion.div 
+
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
@@ -22,13 +22,13 @@ const About = forwardRef((props, ref) => {
             <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
             <span className="text-zinc-300 text-sm font-medium tracking-wider">ABOUT ME</span>
           </div>
-          
+
         </motion.div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          
+
           {/* Left Column - Image & Badge */}
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-100px" }}
@@ -37,44 +37,72 @@ const About = forwardRef((props, ref) => {
           >
             <div className="relative rounded-2xl overflow-hidden aspect-[4/5] sm:aspect-square md:w-4/5 mx-auto lg:mx-0 border border-zinc-800 shadow-2xl">
               <div className="absolute inset-0 bg-gradient-to-tr from-cyan-500/20 to-transparent mix-blend-overlay z-10"></div>
-              <img 
+              <img
                 className="w-full h-full object-cover filter grayscale hover:grayscale-0 transition-all duration-700"
-                src="../images/SRP-image.jpg" 
-                alt="Sudhanshu Ranjan Patra" 
+                src="../images/SRP-image.jpg"
+                alt="Sudhanshu Ranjan Patra"
                 onError={(e) => {
                   e.target.src = "https://images.unsplash.com/photo-1549692520-acc6669e2f0c?q=80&w=600&auto=format&fit=crop";
                 }}
               />
             </div>
 
-            {/* Floating Badge */}
-            <motion.div 
+            {/* Floating Badges */}
+            <motion.div
               initial={{ opacity: 0, scale: 0.8 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ delay: 0.4, duration: 0.6, type: "spring" }}
-              className="absolute -bottom-6 -right-6 sm:bottom-10 sm:-right-10 glass-card p-6 rounded-2xl border border-cyan-500/30 flex flex-col gap-2"
+              className="absolute -bottom-4 right-0 sm:bottom-8 sm:-right-2 glass-card px-4 py-3 sm:px-5 sm:py-4 rounded-xl sm:rounded-2xl border border-cyan-500/30 flex flex-col gap-1 z-20 backdrop-blur-md bg-zinc-950/70"
             >
-              <div className="flex gap-2 items-center">
-                <Code2 className="text-cyan-400" size={24} />
-                <span className="text-white font-bold text-xl font-outfit">Frontend</span>
+              <div className="flex gap-2 items-center cursor-default">
+                <Code2 className="text-cyan-400" size={18} />
+                <span className="text-white font-bold text-base sm:text-lg font-outfit leading-none">Frontend</span>
               </div>
-              <p className="text-zinc-400 text-sm">Developer</p>
+              <p className="text-zinc-400 text-xs font-medium">Developer</p>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.6, duration: 0.6, type: "spring" }}
+              className="absolute -top-4 -left-4 sm:top-8 sm:-left-8 glass-card px-4 py-3 sm:px-5 sm:py-4 rounded-xl sm:rounded-2xl border border-emerald-500/30 flex flex-col gap-1 z-20 backdrop-blur-md bg-zinc-950/70"
+            >
+              <div className="flex gap-2 items-center cursor-default">
+                <Server className="text-emerald-400" size={18} />
+                <span className="text-white font-bold text-base sm:text-lg font-outfit leading-none">Backend</span>
+              </div>
+              <p className="text-zinc-400 text-xs font-medium">Developer</p>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.8, duration: 0.6, type: "spring" }}
+              className="absolute -bottom-8 -left-4 sm:bottom-12 sm:-left-12 glass-card px-4 py-3 sm:px-5 sm:py-4 rounded-xl sm:rounded-2xl border border-purple-500/30 flex flex-col gap-1 z-20 backdrop-blur-md bg-zinc-950/70"
+            >
+              <div className="flex gap-2 items-center cursor-default">
+                <Brain className="text-purple-400" size={18} />
+                <span className="text-white font-bold text-base sm:text-lg font-outfit leading-none">AI / ML</span>
+              </div>
+              <p className="text-zinc-400 text-xs font-medium">Learner</p>
             </motion.div>
           </motion.div>
 
           {/* Right Column - Text & Stats */}
           <div className="flex flex-col gap-8">
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.6, delay: 0.2 }}
             >
               <h2 className="text-2xl md:text-4xl font-bold text-white font-outfit">
-            More than just code.<br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-zinc-400 to-zinc-600">Building things that matter.</span>
-          </h2>
+                More than just code.<br />
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-zinc-400 to-zinc-600">Building things that matter.</span>
+              </h2>
               <p className="text-zinc-400 text-lg leading-relaxed mb-6 font-light">
                 I'm a passionate frontend developer who turns ideas into beautiful
                 and responsive web applications. With a strong foundation in
@@ -88,7 +116,7 @@ const About = forwardRef((props, ref) => {
               </p>
             </motion.div>
 
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
@@ -102,7 +130,7 @@ const About = forwardRef((props, ref) => {
                 <h3 className="text-white text-3xl font-bold font-outfit">1.5+ <span className="text-cyan-500 text-xl">YRS</span></h3>
                 <p className="text-zinc-500 text-sm">Hands-on experience in clean, maintainable code.</p>
               </div>
-              
+
               <div className="flex flex-col gap-2 group">
                 <div className="w-12 h-12 rounded-xl bg-zinc-900 border border-zinc-800 flex items-center justify-center mb-2 group-hover:border-emerald-500/50 transition-colors">
                   <Code2 className="text-emerald-400" size={24} />
@@ -111,7 +139,7 @@ const About = forwardRef((props, ref) => {
                 <p className="text-zinc-500 text-sm">Real-world applications crafted with precision.</p>
               </div>
             </motion.div>
-            
+
           </div>
         </div>
       </div>
