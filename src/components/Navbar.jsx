@@ -46,17 +46,16 @@ function Navbar({ scrollToHome, scrollToAbout, scrollToProjects, scrollToSkill, 
 
   return (
     <>
-      <motion.nav 
+      <motion.nav
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
-        className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
-          scrolled ? "bg-zinc-950/80 backdrop-blur-xl border-b border-zinc-800/50 shadow-lg shadow-black/20" : "bg-transparent py-4"
-        }`}
+        className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${scrolled ? "bg-zinc-950/80 backdrop-blur-xl border-b border-zinc-800/50 shadow-lg shadow-black/20" : "bg-transparent py-4"
+          }`}
       >
         <div className="container mx-auto px-6 lg:px-12 h-20 flex justify-between items-center">
           {/* Logo */}
-          <div 
+          <div
             onClick={scrollToHome}
             className="flex items-center gap-3 cursor-pointer group"
           >
@@ -73,18 +72,18 @@ function Navbar({ scrollToHome, scrollToAbout, scrollToProjects, scrollToSkill, 
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center gap-8 text-sm font-medium tracking-widest text-zinc-400">
             {navItems.map((item, index) => (
-              <span 
+              <span
                 key={index}
-                onClick={item.handler} 
+                onClick={item.handler}
                 className="cursor-pointer hover:text-cyan-400 transition-colors duration-300 relative group py-2"
               >
                 {item.name}
                 <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-cyan-400 transition-all duration-300 group-hover:w-full rounded-full"></span>
               </span>
             ))}
-            
+
             <a
-              href="https://drive.google.com/file/d/1_HSX_4nQlJ0Ht-fQhmrPwUSQ6H_Vdfvy/view"
+              href="https://drive.google.com/file/d/1h5hXqEaNaKDP0TQuTVbZS2WwteMlbTjb/view"
               target="_blank"
               rel="noopener noreferrer"
               className="ml-4 px-6 py-2.5 rounded-full bg-zinc-800 text-white hover:bg-zinc-700 border border-zinc-700 hover:border-cyan-500/50 transition-all duration-300 text-sm font-medium flex items-center gap-2 group"
@@ -118,9 +117,9 @@ function Navbar({ scrollToHome, scrollToAbout, scrollToProjects, scrollToSkill, 
             <div className="w-64 h-full bg-zinc-950 border-l border-zinc-800/50 relative z-50 p-8 flex flex-col">
               <div className="flex flex-col gap-6 mt-16">
                 {navItems.map((item, index) => (
-                  <span 
+                  <span
                     key={index}
-                    onClick={() => handleNavClick(item.handler)} 
+                    onClick={() => handleNavClick(item.handler)}
                     className="text-zinc-400 hover:text-cyan-400 text-lg font-medium tracking-wider cursor-pointer transition-colors"
                   >
                     {item.name}
@@ -129,7 +128,7 @@ function Navbar({ scrollToHome, scrollToAbout, scrollToProjects, scrollToSkill, 
               </div>
               <div className="mt-auto pb-8">
                 <a
-                  href="https://drive.google.com/file/d/1_HSX_4nQlJ0Ht-fQhmrPwUSQ6H_Vdfvy/view"
+                  href="https://drive.google.com/file/d/1h5hXqEaNaKDP0TQuTVbZS2WwteMlbTjb/view"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="block w-full text-center px-6 py-3 rounded-xl bg-gradient-to-r from-cyan-600 to-emerald-500 text-white font-medium shadow-lg shadow-cyan-500/20"

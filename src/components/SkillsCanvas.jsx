@@ -4,18 +4,22 @@ import { Environment, ContactShadows } from '@react-three/drei';
 import { motion } from 'framer-motion';
 import SkillNode from './SkillNode';
 
-const skillData = [
-  { name: 'HTML5', color: '#f97316', position: [-3, 1.5, 0], icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg' },
-  { name: 'CSS3', color: '#3b82f6', position: [3, 1.5, -1], icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-original.svg' },
-  { name: 'JavaScript', color: '#facc15', position: [0, 2, 1], icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg' },
-  { name: 'React', color: '#22d3ee', position: [-1.5, -1, 1], icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg' },
-  { name: 'Node.js', color: '#10b981', position: [1.5, -1, 0.5], icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-original.svg' },
-  { name: 'Tailwind CSS', color: '#2dd4bf', position: [-2.5, -3, 0], icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg' },
-  { name: 'DSA', color: '#a855f7', position: [2.5, -2.5, -0.5], icon: 'https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/leet-code.svg' },
-];
-
-const SkillsCanvas = ({ viewState }) => {
+const SkillsCanvas = ({ skills = [], viewState }) => {
   const sharedNodes = React.useRef([]);
+
+  // Memoize positions to prevent random jumping on re-renders, 
+  // ensuring each skill has a stable random initial position in FREE mode.
+  const canvasSkills = React.useMemo(() => {
+    return skills.map((skill) => {
+      const x = (Math.random() - 0.5) * 6; // -3 to 3
+      const y = (Math.random() - 0.5) * 4; // -2 to 2
+      const z = (Math.random() - 0.5) * 2; // -1 to 1
+      return {
+        ...skill,
+        position: [x, y, z],
+      };
+    });
+  }, [skills]);
 
   return (
     <motion.div
@@ -27,15 +31,24 @@ const SkillsCanvas = ({ viewState }) => {
       <Canvas 
         camera={{ position: [0, 0, 8], fov: 50 }} 
         dpr={[1, 1.5]}
-        style={{ touchAction: 'none' }}
+        style={{ touchAction: (viewState === 'FREE' || viewState === 'TO_FREE') ? 'none' : 'auto' }}
       >
         <ambientLight intensity={0.5} />
         <spotLight position={[10, 10, 10]} angle={0.2} penumbra={1} intensity={1.5} />
         <pointLight position={[-10, -10, -10]} intensity={0.5} color="#22d3ee" />
         
         <Suspense fallback={null}>
-          {skillData.map((skill, index) => (
-            <SkillNode key={index} index={index} sharedNodes={sharedNodes} viewState={viewState} {...skill} />
+          {canvasSkills.map((skill, index) => (
+            <SkillNode 
+              key={index} 
+              index={index} 
+              sharedNodes={sharedNodes} 
+              viewState={viewState} 
+              name={skill.name}
+              color={skill.hexColor}
+              position={skill.position}
+              icon={skill.icon}
+            />
           ))}
           
           <Environment preset="city" />

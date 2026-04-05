@@ -19,7 +19,7 @@ const SkillsGrid = ({ skills, viewState }) => {
             y: viewState === 'GRID' ? 0 : 30 
           }}
           transition={{ duration: 0.5, delay: viewState === 'GRID' ? index * 0.1 : 0 }}
-          className="glass-card p-6 flex flex-col justify-between hover:bg-zinc-800/80 transition-all duration-300"
+          className="glass-card group p-6 flex flex-col justify-between hover:bg-zinc-800/80 transition-all duration-300"
         >
           <div className="flex justify-between items-center mb-6">
             <div className="flex items-center gap-3">
