@@ -1,110 +1,147 @@
 import React, { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Menu, X } from "lucide-react";
 
 function Navbar({ scrollToHome, scrollToAbout, scrollToProjects, scrollToSkill, scrollToContact }) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
-  // 🔒 Scroll Lock on menu open
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 50) {
+        setScrolled(true);
+      } else {
+        setScrolled(false);
+      }
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   useEffect(() => {
     if (isMobileMenuOpen) {
-      document.body.style.overflow = "hidden"; // disable scrolling
+      document.body.style.overflow = "hidden";
     } else {
-      document.body.style.overflow = ""; // enable scrolling
+      document.body.style.overflow = "";
     }
-    // Cleanup when component unmounts
     return () => (document.body.style.overflow = "");
   }, [isMobileMenuOpen]);
 
-  // A helper function to close the mobile menu after clicking a link
   const handleNavClick = (scrollHandler) => {
-    scrollHandler(); // Call the scrolling function passed from App.js
-    setIsMobileMenuOpen(false); // Close the mobile menu
+    scrollHandler();
+    setIsMobileMenuOpen(false);
   };
 
-  return (
-    <div>
-      {/* Top Navbar */}
-      <div className="flex flex-row justify-between items-center bg-[#191C24] w-screen h-16 sm:h-20 md:h-25 [font-family:Oswald,sans-serif] font-bold relative z-50">
-        {/* Logo */}
-        <div className="logo flex gap-1 sm:gap-2 items-center text-2xl sm:text-3xl md:text-4xl text-red-600 ml-3 sm:ml-5 md:ml-20 cursor-pointer">
-          <img
-            className="w-12 sm:w-16 md:w-18"
-            src="../images/DearCode-logo.png"
-            alt=""
-          />
-          <span className=" xs:block">DEARCODE</span>
-        </div>
+  const navItems = [
+    { name: "HOME", handler: scrollToHome },
+    { name: "ABOUT", handler: scrollToAbout },
+    { name: "PROJECTS", handler: scrollToProjects },
+    { name: "SKILLS", handler: scrollToSkill },
+    { name: "CONTACT", handler: scrollToContact },
+  ];
 
-        {/* Desktop Navigation */}
-        <div className="nav-ops flex gap-4 sm:gap-6 md:gap-10 items-center text-lg font-black text-[#6C7293] mr-3 sm:mr-5 md:mr-10">
-          <div className="hidden lg:flex gap-6 xl:gap-10 items-center text-sm xl:text-lg font-black text-[#6C7293]">
-            <span onClick={scrollToHome} className="transition hover:text-red-600 cursor-pointer">HOME</span >
-            <span onClick={scrollToAbout} className="transition hover:text-red-600 cursor-pointer">ABOUT</span >
-            <span onClick={scrollToProjects} className="transition hover:text-red-600 cursor-pointer">PROJECTS</span >
-            <span onClick={scrollToSkill} className="transition hover:text-red-600 cursor-pointer">SKILLS</span >
-            <span onClick={scrollToContact} className="transition hover:text-red-600 cursor-pointer">CONTACT</span >
+  return (
+    <>
+      <motion.nav 
+        initial={{ y: -100 }}
+        animate={{ y: 0 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+        className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
+          scrolled ? "bg-zinc-950/80 backdrop-blur-xl border-b border-zinc-800/50 shadow-lg shadow-black/20" : "bg-transparent py-4"
+        }`}
+      >
+        <div className="container mx-auto px-6 lg:px-12 h-20 flex justify-between items-center">
+          {/* Logo */}
+          <div 
+            onClick={scrollToHome}
+            className="flex items-center gap-3 cursor-pointer group"
+          >
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-500 to-emerald-400 p-[2px] shadow-lg shadow-cyan-500/20 group-hover:shadow-cyan-500/40 transition-all duration-300">
+              <div className="w-full h-full bg-zinc-950 rounded-[10px] flex items-center justify-center">
+                <span className="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-emerald-400 font-outfit">S</span>
+              </div>
+            </div>
+            <span className="text-xl md:text-2xl font-bold text-white tracking-wide font-outfit">
+              DEAR<span className="text-cyan-400">CODE</span>
+            </span>
           </div>
 
-          {/* Hire Me Button */}
-          <a
-            href="https://drive.google.com/file/d/1_HSX_4nQlJ0Ht-fQhmrPwUSQ6H_Vdfvy/view"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="bg-red-600 text-sm sm:text-lg md:text-xl text-white px-3 py-1 sm:px-4 sm:py-1 md:px-8 md:py-2 font-normal transition hover:bg-red-700 cursor-pointer whitespace-nowrap"
-          >
-            Hire me ☞
-          </a>
+          {/* Desktop Navigation */}
+          <div className="hidden lg:flex items-center gap-8 text-sm font-medium tracking-widest text-zinc-400">
+            {navItems.map((item, index) => (
+              <span 
+                key={index}
+                onClick={item.handler} 
+                className="cursor-pointer hover:text-cyan-400 transition-colors duration-300 relative group py-2"
+              >
+                {item.name}
+                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-cyan-400 transition-all duration-300 group-hover:w-full rounded-full"></span>
+              </span>
+            ))}
+            
+            <a
+              href="https://drive.google.com/file/d/1_HSX_4nQlJ0Ht-fQhmrPwUSQ6H_Vdfvy/view"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="ml-4 px-6 py-2.5 rounded-full bg-zinc-800 text-white hover:bg-zinc-700 border border-zinc-700 hover:border-cyan-500/50 transition-all duration-300 text-sm font-medium flex items-center gap-2 group"
+            >
+              Resume
+              <span className="group-hover:translate-x-1 transition-transform">→</span>
+            </a>
+          </div>
 
           {/* Mobile Menu Button */}
           <button
             onClick={toggleMobileMenu}
-            className="lg:hidden flex flex-col gap-1 p-2 ml-2"
-            aria-label="Toggle mobile menu"
+            className="lg:hidden text-zinc-300 hover:text-white transition-colors"
           >
-            <div
-              className={`w-6 h-0.5 bg-white transition-all duration-300 ${isMobileMenuOpen ? "rotate-45 translate-y-2" : ""
-                }`}
-            ></div>
-            <div
-              className={`w-6 h-0.5 bg-white transition-all duration-300 ${isMobileMenuOpen ? "opacity-0" : ""
-                }`}
-            ></div>
-            <div
-              className={`w-6 h-0.5 bg-white transition-all duration-300 ${isMobileMenuOpen ? "-rotate-45 -translate-y-2" : ""
-                }`}
-            ></div>
+            {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
           </button>
         </div>
-      </div>
+      </motion.nav>
 
       {/* Mobile Menu Overlay */}
-      <div
-        className={`lg:hidden fixed inset-0 bg-black bg-opacity-20 backdrop-blur-sm z-40 transition-opacity duration-300 ${isMobileMenuOpen ? "opacity-100 visible" : "opacity-0 invisible"
-          }`}
-        onClick={toggleMobileMenu}
-      >
-      </div>
-
-      {/* Mobile Menu */}
-      <div
-        className={`lg:hidden fixed top-16 sm:top-20 right-0 w-64 h-screen 
-        bg-[#191C24]/80 backdrop-blur-40 z-50 transform transition-transform duration-300 ease-in-out [font-family:Oswald,sans-serif] ${isMobileMenuOpen ? "translate-x-0" : "translate-x-full"
-          }`}
-      >
-        <div className="flex flex-col p-6 gap-6">
-          <div className="flex flex-col gap-4 text-lg font-black text-[#6C7293] border-b border-gray-600 pb-6">
-            <span onClick={() => handleNavClick(scrollToHome)} className="transition hover:text-red-600 cursor-pointer py-2">HOME</span>
-            <span onClick={() => handleNavClick(scrollToAbout)} className="transition hover:text-red-600 cursor-pointer py-2">ABOUT</span>
-            <span onClick={() => handleNavClick(scrollToProjects)} className="transition hover:text-red-600 cursor-pointer py-2">PROJECTS</span>
-            <span onClick={() => handleNavClick(scrollToSkill)} className="transition hover:text-red-600 cursor-pointer py-2">SKILLS</span>
-            <span onClick={() => handleNavClick(scrollToContact)} className="transition hover:text-red-600 cursor-pointer py-2">CONTACT</span>
-          </div>
-        </div>
-      </div>
-    </div>
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, x: "100%" }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: "100%" }}
+            transition={{ type: "spring", damping: 25, stiffness: 200 }}
+            className="fixed inset-0 z-40 lg:hidden flex justify-end"
+          >
+            <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={toggleMobileMenu} />
+            <div className="w-64 h-full bg-zinc-950 border-l border-zinc-800/50 relative z-50 p-8 flex flex-col">
+              <div className="flex flex-col gap-6 mt-16">
+                {navItems.map((item, index) => (
+                  <span 
+                    key={index}
+                    onClick={() => handleNavClick(item.handler)} 
+                    className="text-zinc-400 hover:text-cyan-400 text-lg font-medium tracking-wider cursor-pointer transition-colors"
+                  >
+                    {item.name}
+                  </span>
+                ))}
+              </div>
+              <div className="mt-auto pb-8">
+                <a
+                  href="https://drive.google.com/file/d/1_HSX_4nQlJ0Ht-fQhmrPwUSQ6H_Vdfvy/view"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block w-full text-center px-6 py-3 rounded-xl bg-gradient-to-r from-cyan-600 to-emerald-500 text-white font-medium shadow-lg shadow-cyan-500/20"
+                >
+                  Download Resume
+                </a>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
   );
 }
 

@@ -1,14 +1,15 @@
-import React, { forwardRef } from "react";
+import React, { forwardRef, useState } from "react";
 import emailjs from "@emailjs/browser";
-import { useState } from "react";
+import { motion } from "framer-motion";
+import { Send, MapPin, Mail, Phone, ChevronRight } from "lucide-react";
 
 const Contact = forwardRef((props, ref) => {
-
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     message: ""
   });
+  const [status, setStatus] = useState("idle"); // idle, submitting, success, error
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -16,6 +17,7 @@ const Contact = forwardRef((props, ref) => {
 
   const sendEmail = (e) => {
     e.preventDefault();
+    setStatus("submitting");
 
     emailjs.send(
       "service_2vehzc9",
@@ -28,15 +30,16 @@ const Contact = forwardRef((props, ref) => {
       },
       "YlCu6nQUNtDHDWUw-"
     ).then(() => {
-        alert("Message Sent Successfully!");
+        setStatus("success");
+        setTimeout(() => setStatus("idle"), 3000);
         setFormData({ name: "", email: "", message: ""});
     }).catch((err) => {
       console.log(err);
-      alert("Failed to send message!");
+      setStatus("error");
+      setTimeout(() => setStatus("idle"), 3000);
     });
   };
 
-  // Quick link map for name => handler
   const quickLinks = [
     { name: "Home", handler: props.scrollToHome },
     { name: "About", handler: props.scrollToAbout },
@@ -45,243 +48,194 @@ const Contact = forwardRef((props, ref) => {
   ];
 
   const socialIcons = [
-    { 
-      name: "GitHub", 
-      url: "https://github.com/Sudhanshu-Ranjan-Patra",
-      icon: "https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/github.svg"
-    },
-    { 
-      name: "Twitter", 
-      url: "https://twitter.com/sudhanshu_527",
-      icon: "https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/twitter.svg"
-    },
-    { 
-      name: "LinkedIn", 
-      url: "https://linkedin.com/in/sudhanshu-ranjan-patra",
-      icon: "https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/linked-in-alt.svg"
-    },
-    { 
-      name: "Instagram", 
-      url: "https://instagram.com/sudhanshu_ranjan_patra_",
-      icon: "https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/instagram.svg"
-    },
-    { 
-      name: "Discord", 
-      url: "https://discord.gg/sudhanshuranjanpatra_09862",
-      icon: "https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/discord.svg"
-    },
-    { 
-      name: "YouTube", 
-      url: "https://www.youtube.com/c/@sudhanshuranjanpatra",
-      icon: "https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/youtube.svg"
-    },
-    { 
-      name: "LeetCode", 
-      url: "https://www.leetcode.com/sudhanshu_ranjan_patra",
-      icon: "https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/leet-code.svg"
-    },
-    { 
-      name: "GeeksforGeeks", 
-      url: "https://auth.geeksforgeeks.org/user/patrasudhanoo28",
-      icon: "https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/geeks-for-geeks.svg"
-    },
+    { name: "GitHub", url: "https://github.com/Sudhanshu-Ranjan-Patra", icon: "https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/github.svg" },
+    { name: "Twitter", url: "https://twitter.com/sudhanshu_527", icon: "https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/twitter.svg" },
+    { name: "LinkedIn", url: "https://linkedin.com/in/sudhanshu-ranjan-patra", icon: "https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/linked-in-alt.svg" },
+    { name: "Instagram", url: "https://instagram.com/sudhanshu_ranjan_patra_", icon: "https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/instagram.svg" },
+    { name: "Discord", url: "https://discord.gg/sudhanshuranjanpatra_09862", icon: "https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/discord.svg" },
+    { name: "YouTube", url: "https://www.youtube.com/c/@sudhanshuranjanpatra", icon: "https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/youtube.svg" },
+    { name: "LeetCode", url: "https://www.leetcode.com/sudhanshu_ranjan_patra", icon: "https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/leet-code.svg" },
+    { name: "GeeksforGeeks", url: "https://auth.geeksforgeeks.org/user/patrasudhanoo28", icon: "https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/geeks-for-geeks.svg" },
   ];
 
   return (
-    <section ref={ref} className="bg-black [font-family:Oswald,sans-serif] font-bold pb-10 px-4 md:px-8">
-      <div className="relative max-w-7xl mx-auto">
-        <div className="bg-[#191C24] p-6 md:p-8 rounded-xl text-white">
-          {/* Desktop Layout */}
-          <div className="hidden md:flex justify-between items-start gap-8">
-            {/* Left Section - Quick Links */}
-            <div className="w-1/4">
-              <h3 className="text-2xl font-bold mb-6">QUICK LINKS</h3>
-              <ul className="flex flex-col gap-3">
-                {quickLinks.map((item) => (
-                  <li
-                    key={item.name}
-                    className="hover:text-red-600 transition-all duration-200 cursor-pointer text-lg"
-                    onClick={item.handler}
-                  >
-                    {item.name}
-                  </li>
-                ))}
-              </ul>
+    <section ref={ref} className="bg-zinc-950 py-24 sm:py-32 relative overflow-hidden">
+      {/* Decorative Grid Lines */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none"></div>
 
-              {/* Social Icons - Professional Design */}
-              <div className="mt-12">
-                <p className="text-xs font-semibold text-gray-500 mb-4 tracking-widest">CONNECT WITH ME</p>
-                <div className="flex gap-3 flex-wrap">
+      <div className="container mx-auto px-6 lg:px-12 relative z-10 w-full max-w-7xl">
+        
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.6 }}
+          className="flex flex-col items-center mb-16"
+        >
+          <div className="inline-flex items-center gap-2 mb-4 px-4 py-2 rounded-full glass-panel border-cyan-500/20 text-cyan-400">
+            <Mail size={16} />
+            <span className="text-zinc-300 text-sm font-medium tracking-wider">GET IN TOUCH</span>
+          </div>
+          <h2 className="text-4xl md:text-5xl font-bold text-white font-outfit text-center">
+            Let's build together
+          </h2>
+        </motion.div>
+
+        <div className="glass-card p-6 sm:p-10 lg:p-12">
+          <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 lg:gap-16">
+            
+            {/* Left Info Section */}
+            <motion.div 
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.7 }}
+              className="lg:col-span-2 flex flex-col gap-10"
+            >
+              <div>
+                <h3 className="text-2xl font-bold text-white font-outfit mb-4">Contact Info</h3>
+                <p className="text-zinc-400 font-light mb-8 max-w-sm">
+                  Whether you have a question, a project in mind, or just want to say hi, I'll try my best to get back to you!
+                </p>
+                
+                <div className="flex flex-col gap-6">
+                  <div className="flex items-center gap-4 group">
+                    <div className="w-12 h-12 rounded-full bg-zinc-900 border border-zinc-800 flex items-center justify-center group-hover:border-cyan-500/50 group-hover:text-cyan-400 text-zinc-500 transition-colors">
+                      <Mail size={20} />
+                    </div>
+                    <div className="flex flex-col">
+                      <span className="text-zinc-500 text-sm font-medium">Email</span>
+                      <a href="mailto:sudhanshuranjanpatra@gmail.com" className="text-white hover:text-cyan-400 transition-colors">
+                        sudhanshuranjanpatra@gmail.com
+                      </a>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-center gap-4 group">
+                    <div className="w-12 h-12 rounded-full bg-zinc-900 border border-zinc-800 flex items-center justify-center group-hover:border-emerald-500/50 group-hover:text-emerald-400 text-zinc-500 transition-colors">
+                      <MapPin size={20} />
+                    </div>
+                    <div className="flex flex-col">
+                      <span className="text-zinc-500 text-sm font-medium">Location</span>
+                      <span className="text-white">Odisha, India</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <h3 className="text-zinc-500 text-sm font-bold tracking-widest uppercase mb-4">Socials</h3>
+                <div className="flex flex-wrap gap-3">
                   {socialIcons.map((social) => (
                     <a
                       key={social.name}
                       href={social.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="group relative"
+                      className="w-10 h-10 rounded-lg bg-zinc-900 border border-zinc-800 flex items-center justify-center hover:border-cyan-500/50 hover:bg-cyan-500/10 transition-all duration-300 group"
                       title={social.name}
                     >
-                      <div className="w-12 h-12 rounded-lg bg-[#2A2F3A] flex items-center justify-center border border-gray-600 hover:border-red-600 transition-all duration-300 hover:bg-red-600/10 hover:shadow-lg hover:shadow-red-600/20">
-                        <img 
-                          src={social.icon} 
-                          alt={social.name}
-                          className="w-6 filter brightness-100 group-hover:brightness-0 group-hover:invert transition-all duration-300"
-                        />
-                      </div>
-                      <span className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2 py-1 bg-red-600 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">
-                        {social.name}
-                      </span>
+                      <img 
+                        src={social.icon} 
+                        alt={social.name}
+                        className="w-5 filter grayscale opacity-70 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-300"
+                        style={{ filter: "invert(0.5) sepia(1) saturate(0) hue-rotate(0deg)" }}
+                      />
                     </a>
                   ))}
                 </div>
               </div>
+            </motion.div>
 
-            </div>
-            {/* Right Section - Contact Form */}
-            <div className="w-2/3 relative">
-              <h3 className="text-2xl font-bold mb-6">GET IN TOUCH</h3>
-              <form className="flex flex-col gap-4 pr-20" onSubmit={sendEmail}>
-                <input
-                  type="text"
-                  name="name"
-                  placeholder="Your Name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  className="p-3 rounded bg-[#2A2F3A] text-white placeholder-gray-400 focus:ring-2 focus:ring-red-600 focus:outline-none"
-                />
+            {/* Right Form Section */}
+            <motion.div 
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.7, delay: 0.2 }}
+              className="lg:col-span-3 bg-zinc-900/50 rounded-2xl p-6 sm:p-8 border border-zinc-800/80 relative"
+            >
+              <form onSubmit={sendEmail} className="flex flex-col gap-5">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                  <div className="flex flex-col gap-1">
+                    <label className="text-zinc-400 text-sm font-medium pl-1">Name</label>
+                    <input
+                      type="text"
+                      name="name"
+                      required
+                      value={formData.name}
+                      onChange={handleChange}
+                      className="bg-zinc-950/80 border border-zinc-800 text-white rounded-xl px-4 py-3 outline-none focus:border-cyan-500/50 focus:ring-1 focus:ring-cyan-500/50 transition-all font-light"
+                      placeholder="John Doe"
+                    />
+                  </div>
+                  <div className="flex flex-col gap-1">
+                    <label className="text-zinc-400 text-sm font-medium pl-1">Email</label>
+                    <input
+                      type="email"
+                      name="email"
+                      required
+                      value={formData.email}
+                      onChange={handleChange}
+                      className="bg-zinc-950/80 border border-zinc-800 text-white rounded-xl px-4 py-3 outline-none focus:border-cyan-500/50 focus:ring-1 focus:ring-cyan-500/50 transition-all font-light"
+                      placeholder="john@example.com"
+                    />
+                  </div>
+                </div>
 
-                <input
-                  type="email"
-                  name="email"
-                  placeholder="Your Email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  className="p-3 rounded bg-[#2A2F3A] text-white placeholder-gray-400 focus:ring-2 focus:ring-red-600 focus:outline-none"
-                />
-
-                <textarea
-                  name="message"
-                  placeholder="Your Message"
-                  value={formData.message}
-                  onChange={handleChange}
-                  className="p-3 rounded bg-[#2A2F3A] text-white placeholder-gray-400 h-32 focus:ring-2 focus:ring-red-600 focus:outline-none resize-none"
-                ></textarea>
+                <div className="flex flex-col gap-1">
+                  <label className="text-zinc-400 text-sm font-medium pl-1">Message</label>
+                  <textarea
+                    name="message"
+                    required
+                    value={formData.message}
+                    onChange={handleChange}
+                    className="bg-zinc-950/80 border border-zinc-800 text-white rounded-xl px-4 py-3 outline-none focus:border-cyan-500/50 focus:ring-1 focus:ring-cyan-500/50 transition-all font-light min-h-[160px] resize-y"
+                    placeholder="Tell me about your project..."
+                  ></textarea>
+                </div>
 
                 <button
                   type="submit"
-                  className="bg-red-600 hover:bg-[#d21717] transition-colors duration-300 text-white py-3 rounded-lg font-semibold"
+                  disabled={status === "submitting"}
+                  className="mt-2 w-full py-4 rounded-xl bg-gradient-to-r from-cyan-600 to-emerald-500 text-white font-bold tracking-wide flex items-center justify-center gap-2 hover:shadow-[0_0_20px_rgba(6,182,212,0.4)] transition-shadow duration-300 disabled:opacity-70 disabled:cursor-not-allowed"
                 >
-                  Send Message
+                  {status === "submitting" ? (
+                    <span className="animate-pulse">Sending...</span>
+                  ) : status === "success" ? (
+                    <span>Message Sent!</span>
+                  ) : status === "error" ? (
+                    <span className="text-red-200">Failed to Send</span>
+                  ) : (
+                    <>
+                      Send Message <Send size={18} />
+                    </>
+                  )}
                 </button>
               </form>
 
+              {/* Sub-logo or decor */}
+              <div className="absolute top-0 right-0 -mt-8 -mr-8 w-32 h-32 bg-cyan-500/10 rounded-full blur-[40px] pointer-events-none"></div>
+            </motion.div>
 
-              {/* Overlapping Avatar Image */}
-              <div className="absolute -right-4 top-1/2 transform -translate-y-2/5 z-10">
-                <img
-                  className="w-50 h-80"
-                  src="../images/contact-img.png"
-                  alt="Contact"
-                />
-              </div>
+          </div>
+          
+          {/* Quick Links Footer */}
+          <div className="mt-16 pt-8 border-t border-zinc-800 flex flex-col sm:flex-row justify-between items-center gap-4 px-2">
+            <h4 className="text-white font-bold font-outfit text-xl">DEAR<span className="text-cyan-400">CODE</span></h4>
+            <div className="flex items-center gap-6">
+              {quickLinks.map((item) => (
+                <span
+                  key={item.name}
+                  onClick={item.handler}
+                  className="text-zinc-500 hover:text-cyan-400 text-sm font-medium cursor-pointer transition-colors"
+                >
+                  {item.name}
+                </span>
+              ))}
             </div>
           </div>
 
-          {/* Mobile Layout */}
-          <div className="md:hidden">
-            {/* Contact Form and Image Section */}
-            <div className=" flex flex-col sm:flex-row gap-6 mb-8">
-              <div className="flex-1">
-                <h3 className="text-xl font-bold mb-4">GET IN TOUCH</h3>
-                <form className="flex flex-col gap-3" onSubmit={sendEmail}>
-                  <input
-                    type="text"
-                    name="name"
-                    placeholder="Your Name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    className="p-3 rounded bg-[#2A2F3A] text-white placeholder-gray-400 focus:ring-2 focus:ring-red-600 focus:outline-none"
-                  />
-
-                  <input
-                    type="email"
-                    name="email"
-                    placeholder="Your Email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    className="p-3 rounded bg-[#2A2F3A] text-white placeholder-gray-400 focus:ring-2 focus:ring-red-600 focus:outline-none"
-                  />
-
-                  <textarea
-                    name="message"
-                    placeholder="Your Message"
-                    value={formData.message}
-                    onChange={handleChange}
-                    className="p-3 rounded bg-[#2A2F3A] text-white placeholder-gray-400 h-24 focus:ring-2 focus:ring-red-600 focus:outline-none resize-none"
-                  ></textarea>
-
-                  <button
-                    type="submit"
-                    className="bg-red-600 hover:bg-[#d21717] transition-colors duration-300 text-white py-3 rounded-lg font-semibold"
-                  >
-                    Send Message
-                  </button>
-                </form>
-
-              </div>
-
-              {/* Image beside form on mobile */}
-              <div className=" absolute bottom-2 right-8 flex justify-center items-center sm:w-fit sm:h-fit">
-                <img
-                  className="w-fit h-60 sm:w-fit sm:h-60 "
-                  src="../images/contact-img.png"
-                  alt="Contact"
-                />
-              </div>
-            </div>
-
-            {/* Quick Links below on mobile */}
-            <div>
-              <h3 className="text-xl font-bold mb-4">QUICK LINKS</h3>
-              <ul className="flex flex-col gap-2">
-                {quickLinks.map((item) => (
-                  <li
-                    key={item.name}
-                    className="hover:text-red-600 transition-all duration-200 cursor-pointer"
-                    onClick={item.handler}
-                  >
-                    {item.name}
-                  </li>
-                ))}
-              </ul>
-
-              {/* Social Icons - Professional Design Mobile */}
-              <div className="mt-8">
-                <p className="text-xs font-semibold text-gray-500 mb-4 tracking-widest">CONNECT WITH ME</p>
-                <div className="flex gap-3 flex-wrap">
-                  {socialIcons.map((social) => (
-                    <a
-                      key={social.name}
-                      href={social.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="group relative"
-                      title={social.name}
-                    >
-                      <div className="w-10 h-10 rounded-lg bg-[#2A2F3A] flex items-center justify-center border border-gray-600 hover:border-red-600 transition-all duration-300 hover:bg-red-600/10 hover:shadow-lg hover:shadow-red-600/20">
-                        <img 
-                          src={social.icon} 
-                          alt={social.name}
-                          className="w-5 filter brightness-100 group-hover:brightness-0 group-hover:invert transition-all duration-300"
-                        />
-                      </div>
-                    </a>
-                  ))}
-                </div>
-              </div>
-
-            </div>
-          </div>
         </div>
       </div>
     </section>
@@ -289,4 +243,5 @@ const Contact = forwardRef((props, ref) => {
 });
 
 Contact.displayName = 'Contact';
+
 export default Contact;
