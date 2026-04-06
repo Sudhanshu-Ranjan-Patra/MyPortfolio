@@ -53,7 +53,7 @@ const Contact = forwardRef((props, ref) => {
     { name: "LinkedIn", url: "https://linkedin.com/in/sudhanshu-ranjan-patra", icon: "https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/linked-in-alt.svg" },
     { name: "Instagram", url: "https://instagram.com/sudhanshu_ranjan_patra_", icon: "https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/instagram.svg" },
     { name: "Discord", url: "https://discord.gg/sudhanshuranjanpatra_09862", icon: "https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/discord.svg" },
-    { name: "YouTube", url: "https://www.youtube.com/c/@sudhanshuranjanpatra", icon: "https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/youtube.svg" },
+    { name: "YouTube", url: "https://www.youtube.com/@sudhanshuranjanpatra", icon: "https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/youtube.svg" },
     { name: "LeetCode", url: "https://www.leetcode.com/sudhanshu_ranjan_patra", icon: "https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/leet-code.svg" },
     { name: "GeeksforGeeks", url: "https://auth.geeksforgeeks.org/user/patrasudhanoo28", icon: "https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/geeks-for-geeks.svg" },
   ];
