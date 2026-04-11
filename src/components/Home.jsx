@@ -6,7 +6,7 @@ const Home = forwardRef((props, ref) => {
   return (
     <section 
       ref={ref} 
-      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-zinc-950 pt-20 sm:pt-10"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-zinc-950 pt-20"
     >
       {/* Background ambient glows */}
       <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-cyan-600/20 rounded-full mix-blend-screen filter blur-[128px] animate-pulse"></div>
